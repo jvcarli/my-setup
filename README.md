@@ -6,9 +6,6 @@ These configurations were primarily tested on Mojave and are guaranteed to funct
 
 ## Install guide
 
-
-
 ## macOS Mojave
 
-## macOS Catalina
-
+## macOS Big Sur
