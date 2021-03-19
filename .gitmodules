@@ -10,3 +10,6 @@
 [submodule "/Users/dev/.config/omz-custom/themes/spaceship-prompt"]
 	path = /Users/dev/.config/omz-custom/themes/spaceship-prompt
 	url = https://github.com/denysdovhan/spaceship-prompt.git
+[submodule "/Users/dev/.config/omz-custom/plugins/zsh-autosuggestions"]
+	path = /Users/dev/.config/omz-custom/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
