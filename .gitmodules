@@ -1,0 +1,3 @@
+[submodule ".config/omz-custom/themes/.config/omz-custom/themes/powerlevel10k"]
+	path = .config/omz-custom/themes/.config/omz-custom/themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k
