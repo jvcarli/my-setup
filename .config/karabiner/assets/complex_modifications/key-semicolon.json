@@ -1,0 +1,102 @@
+{
+  "title": "Change ; key",
+  "rules": [
+    {
+      "description": "Right control by holding ; key. Regular ; when pressed alone",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "semicolon"
+          },
+          "to_after_key_up": [
+            {
+              "key_code": "semicolon"
+            }
+          ],
+          "to_if_held_down": [
+            {
+              "key_code": "right_control",
+              "halt": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Map Left Control + ; to option + delete (delete one word)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "modifiers": {
+              "mandatory": [
+                "left_control"
+              ]
+            },
+            "key_code": "semicolon"
+          },
+          "to": [
+            {
+              "repeat": true,
+              "key_code": "delete_or_backspace",
+              "modifiers": [
+                "left_option"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Map Left Control + ; to delete",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "modifiers": {
+              "mandatory": [
+                "left_control"
+              ]
+            },
+            "key_code": "semicolon"
+          },
+          "to": [
+            {
+              "repeat": true,
+              "key_code": "delete_or_backspace"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Map Hyper Key + ; to delete",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "modifiers": {
+              "mandatory": [
+                 "left_control",
+		             "left_option",
+                 "left_command",
+		             "left_shift"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            },
+            "key_code": "semicolon"
+          },
+          "to": [
+            {
+              "repeat": true,
+              "key_code": "delete_or_backspace"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

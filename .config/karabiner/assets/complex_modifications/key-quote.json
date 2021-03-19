@@ -1,0 +1,144 @@
+{
+  "title": "Change quote key",
+  "rules": [
+    {
+      "description": "Map Hyper + ' to cedilla",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "modifiers": {
+              "mandatory": [
+                "left_control",
+		"left_option",
+		"left_command",
+		"left_shift"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            },
+            "key_code": "quote"
+          },
+          "to": [
+            {
+              "repeat": true,
+              "key_code": "c",
+              "modifiers": [
+                "right_option"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Change quote to shift+option if pressed with other keys, to quote if pressed alone.",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "quote",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "parameters": {
+              "basic.to_if_alone_timeout_milliseconds": 1000,
+              "basic.to_if_held_down_threshold_milliseconds": 50
+         },
+          "to_if_alone": [
+            {
+              "key_code": "quote"
+            }
+          ],
+          "to_if_held_down": [
+            {
+              "key_code": "right_option",
+              "modifiers": [
+                "left_shift"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Right command by holding quote key. Regular quote when pressed alone",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "quote"
+          },
+          "to_after_key_up": [
+            {
+              "key_code": "quote"
+            }
+          ],
+          "to_if_held_down": [
+            {
+              "key_code": "right_command",
+              "halt": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Map Left Control + quote to delete forward",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "modifiers": {
+              "mandatory": [
+                "left_control"
+              ]
+            },
+            "key_code": "quote"
+          },
+          "to": [
+            {
+              "repeat": true,
+              "key_code": "delete_or_backspace",
+              "modifiers": [
+                "left_command"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Map Left Control + quote to option + delete (delete one word)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "modifiers": {
+              "mandatory": [
+                "left_control"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            },
+            "key_code": "quote"
+          },
+          "to": [
+            {
+              "repeat": true,
+              "key_code": "delete_or_backspace",
+              "modifiers": [
+                "left_option"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

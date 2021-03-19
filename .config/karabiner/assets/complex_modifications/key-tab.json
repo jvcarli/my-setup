@@ -1,0 +1,79 @@
+{
+  "title": "Tab remap",
+  "rules": [
+    {
+      "description": "Command key by holding tab key. Regular tab key when pressed alone",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "tab"
+          },
+          "to_after_key_up": [
+            {
+              "key_code": "tab"
+            }
+          ],
+          "to_if_held_down": [
+            {
+              "key_code": "left_command",
+              "halt": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Control key by holding tab key. Regular tab key when pressed alone",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "tab"
+          },
+          "to_after_key_up": [
+            {
+              "key_code": "tab"
+            }
+          ],
+          "to_if_held_down": [
+            {
+              "key_code": "left_control",
+              "halt": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "When holded: change tab to command. + hjkl = vim keys (left,down,up.right arrow keys), + u/i = control + left arrow/ control+right arrow. When pressed acts as regular tab.",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "tab",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "parameters": {
+              "basic.to_if_alone_timeout_milliseconds": 140,
+              "basic.to_if_held_down_threshold_milliseconds": 150
+         },
+          "to_if_alone": [
+            {
+              "key_code": "tab"
+            }
+          ],
+          "to_if_held_down": [
+            {
+              "key_code": "left_command"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

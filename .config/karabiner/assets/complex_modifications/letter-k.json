@@ -1,0 +1,57 @@
+{
+  "title": "Change K key",
+  "rules": [
+    {
+      "description": "Map Hyper + K to up arrow",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "modifiers": {
+              "mandatory": [
+                "left_control",
+		"left_option",
+		"left_command",
+		"left_shift"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            },
+            "key_code": "k"
+          },
+          "to": [
+            {
+              "key_code": "up_arrow"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Map Control + K to up key",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "modifiers": {
+              "mandatory": [
+                "left_control"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            },
+            "key_code": "k"
+          },
+          "to": [
+            {
+              "repeat": true,
+              "key_code": "up_arrow"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
