@@ -7,3 +7,6 @@
 [submodule "/Users/dev/.config/omz-custom/themes/powerlevel10k"]
 	path = /Users/dev/.config/omz-custom/themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+[submodule "/Users/dev/.config/omz-custom/themes/spaceship-prompt"]
+	path = /Users/dev/.config/omz-custom/themes/spaceship-prompt
+	url = https://github.com/denysdovhan/spaceship-prompt.git
