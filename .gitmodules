@@ -13,3 +13,6 @@
 [submodule "/Users/dev/.config/omz-custom/plugins/zsh-autosuggestions"]
 	path = /Users/dev/.config/omz-custom/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "/Users/dev/.config/omz-custom/plugins/zsh-syntax-highlighting"]
+	path = /Users/dev/.config/omz-custom/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
