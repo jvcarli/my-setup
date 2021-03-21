@@ -61768,7 +61768,7 @@
 	<key>DoubleClickPerformsSmartSelection</key>
 	<true/>
 	<key>EnableAPIServer</key>
-	<false/>
+	<true/>
 	<key>EnableDivisionView</key>
 	<false/>
 	<key>EnableProxyIcon</key>
@@ -62602,7 +62602,7 @@
 			<key>Non-ASCII Ligatures</key>
 			<false/>
 			<key>Normal Font</key>
-			<string>IosevkaNerdFontComplete-Light 24</string>
+			<string>VictorMonoNerdFontComplete-Light 24</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Open Toolbelt</key>
