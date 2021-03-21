@@ -17,7 +17,7 @@
           "to": [
             {
               "set_variable": {
-                "name": "vi_mode",
+                "name": "keypad_mode",
                 "value": 1
               }
             }
@@ -30,40 +30,15 @@
           "to_after_key_up": [
             {
               "set_variable": {
-                "name": "vi_mode",
+                "name": "keypad_mode",
                 "value": 0
               }
             }
           ]
         },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "h",
-            "modifiers": {
-              "optional": [
-                "caps_lock"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "left_arrow"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "vi_mode",
-              "value": 1
-            },
-            {
-              "type": "variable_if",
-              "name": "vi_visual_mode",
-              "value": 0
-            }
-          ]
-        },
+
+
+
         {
           "type": "basic",
           "from": {
@@ -82,7 +57,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             },
             {
@@ -110,7 +85,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             },
             {
@@ -138,7 +113,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             },
             {
@@ -151,7 +126,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "f",
+            "key_code": "u",
             "modifiers": {
               "optional": [
                 "caps_lock"
@@ -160,13 +135,13 @@
           },
           "to": [
             {
-              "key_code": "fn"
+              "key_code": "7"
             }
           ],
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             },
             {
@@ -176,269 +151,7 @@
             }
           ]
         },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "h",
-            "modifiers": {
-              "mandatory": [
-                "fn"
-              ],
-              "optional": [
-                "caps_lock"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "home"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "vi_mode",
-              "value": 1
-            },
-            {
-              "type": "variable_if",
-              "name": "vi_visual_mode",
-              "value": 0
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "j",
-            "modifiers": {
-              "mandatory": [
-                "fn"
-              ],
-              "optional": [
-                "caps_lock"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "page_down"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "vi_mode",
-              "value": 1
-            },
-            {
-              "type": "variable_if",
-              "name": "vi_visual_mode",
-              "value": 0
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "k",
-            "modifiers": {
-              "mandatory": [
-                "fn"
-              ],
-              "optional": [
-                "caps_lock"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "page_up"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "vi_mode",
-              "value": 1
-            },
-            {
-              "type": "variable_if",
-              "name": "vi_visual_mode",
-              "value": 0
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "l",
-            "modifiers": {
-              "mandatory": [
-                "fn"
-              ],
-              "optional": [
-                "caps_lock"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "end"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "vi_mode",
-              "value": 1
-            },
-            {
-              "type": "variable_if",
-              "name": "vi_visual_mode",
-              "value": 0
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "0",
-            "modifiers": {
-              "optional": [
-                "caps_lock"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "a",
-              "modifiers": [
-                "left_control"
-              ]
-            },
-            {
-              "key_code": "vk_none"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "vi_mode",
-              "value": 1
-            },
-            {
-              "type": "variable_if",
-              "name": "vi_visual_mode",
-              "value": 0
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "4",
-            "modifiers": {
-              "optional": [
-                "caps_lock",
-                "shift"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "e",
-              "modifiers": [
-                "left_control"
-              ]
-            },
-            {
-              "key_code": "vk_none"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "vi_mode",
-              "value": 1
-            },
-            {
-              "type": "variable_if",
-              "name": "vi_visual_mode",
-              "value": 0
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "v",
-            "modifiers": {
-              "optional": [
-                "caps_lock"
-              ]
-            }
-          },
-          "to": [
-            {
-              "set_variable": {
-                "name": "vi_visual_mode",
-                "value": 1
-              }
-            }
-          ],
-          "to_if_alone": [
-            {
-              "key_code": "vk_none"
-            }
-          ],
-          "to_after_key_up": [
-            {
-              "set_variable": {
-                "name": "vi_visual_mode",
-                "value": 0
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "vi_mode",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "h",
-            "modifiers": {
-              "optional": [
-                "caps_lock"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "left_arrow",
-              "modifiers": [
-                "left_shift"
-              ]
-            }
-          ],
-          "to_after_key_up": [
-            {
-              "key_code": "vk_none"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "vi_visual_mode",
-              "value": 1
-            }
-          ]
-        },
+
         {
           "type": "basic",
           "from": {
@@ -770,7 +483,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -799,7 +512,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -828,7 +541,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -857,7 +570,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -886,7 +599,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -915,7 +628,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -944,7 +657,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -973,7 +686,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1002,7 +715,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1031,7 +744,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1060,7 +773,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1089,7 +802,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1118,7 +831,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1147,7 +860,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1176,7 +889,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1205,7 +918,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1234,7 +947,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1263,7 +976,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1292,7 +1005,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1321,7 +1034,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1350,7 +1063,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1379,7 +1092,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1408,7 +1121,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1437,7 +1150,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1466,7 +1179,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1495,7 +1208,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1524,7 +1237,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1553,7 +1266,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1582,7 +1295,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1611,7 +1324,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1640,7 +1353,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1669,7 +1382,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1698,7 +1411,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1727,7 +1440,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1756,7 +1469,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1785,7 +1498,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1814,7 +1527,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1843,36 +1556,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "u",
-            "modifiers": {
-              "optional": [
-                "caps_lock"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "d"
-            },
-            {
-              "key_code": "u"
-            },
-            {
-              "key_code": "vk_none"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1901,7 +1585,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1930,7 +1614,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1959,7 +1643,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
@@ -1988,7 +1672,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "vi_mode",
+              "name": "keypad_mode",
               "value": 1
             }
           ]
