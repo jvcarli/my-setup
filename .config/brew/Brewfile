@@ -69,7 +69,7 @@ brew "ntfs-3g"
 brew "pandoc"
 brew "php"
 brew "pipenv"
-brew "postgresql@11", restart_service: true
+brew "postgresql@11"
 brew "py3cairo"
 brew "pylint"
 brew "ragel"
