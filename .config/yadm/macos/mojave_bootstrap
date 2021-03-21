@@ -1,0 +1,241 @@
+#!/usr/bin/env bash
+# vim:fileencoding=utf-8:ft=conf:foldmethod=marker
+
+# TODO: rearragenge order on Brewfile
+# virtualbox and bluestacks should come in the end
+
+#: Variables {{{
+
+# Directories
+dir_config="$HOME/.config"
+dir_dotconfig="$HOME/.config/macos/config_symlinked"
+dir_homeconfig="$HOME/.config/macos/home_symlinked"
+dir_bootstrap="$HOME/.config/macos/bootstrap"
+
+# Files
+file_brewfile="$HOME/.config/macos/Brewfile"
+  
+#: }}}
+
+#: Functions {{{
+
+#: Installation {{{
+
+#: Apple xcode cli tools {{{
+
+# install xcodetools if they aren't installed yet
+install_xcodetools() {
+
+  echo "Checking if Xcode command line tools are installed..."
+  if [[ $(xcode-select -p 1>/dev/null;echo $?) == 2 ]]; then
+    echo -e "Installing Apple Command Line Tools... \n"
+    xcode-select --install
+  else
+    echo -e "Xcode command line tools are already installed. \n"
+  fi
+
+}
+
+#: }}}
+
+#: Homebrew {{{
+
+# detect and install homebrew if it isn't installed yet
+install_brew() {
+
+  echo "Detecting if Homebrew package manager is already installed"
+  if ! command -v brew &> /dev/null; then
+    echo "Homebrew is NOT installed"
+    echo "Installing Homebrew Package Manager..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  else
+    echo -e "Homebrew is already installed.\n"
+  fi
+
+}
+
+# install packages, cli tools and gui apps from brewfile 
+install_brewfile() {
+
+  echo "Installing / Upgrading applications and cli tools from Brewfile"
+  # Updating brew
+  brew update
+  # Upgrading packages
+  brew upgrade 
+  # Brewfile path: $file_brewfile
+  brew bundle --file $file_brewfile
+
+}
+
+#: }}}
+
+#: asdf-vm {{{
+
+# install asdf plugins
+install_asdf_plugins() {
+
+  echo -e "\nInstalling asdf-vm plugins"
+  # Ruby
+  asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+  # Python
+  asdf plugin-add python
+  # Nodejs
+
+}
+
+# install asdf languages
+install_asdf_langs() {
+
+  echo -e "\nInstalling programming languages with asdf-vm"
+
+  # Python
+  asdf install python 2.7.17  # Used on centOS remote server
+  asdf install python 2.7.18  # Latest python 2 version. EOL jan/2020
+  # asdf install python 3.5.1   # Used on centOS remote server
+  # python 3.5.1 install is not working
+  asdf install python 3.9.0   # Latest python 3 stable
+
+  # Ruby
+  asdf install ruby 2.7.1      # Latest ruby stable
+  
+  # Nodejs
+  asdf install nodejs 12.18.1  # latest LTS version that supports gitbook
+
+}
+
+#: }}}
+
+#: Oh My Zsh {{{
+install_oh_my_zsh() {
+
+  export ZSH="$HOME/.config/oh-my-zsh"
+
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+
+}
+
+install_omz_plugins() {
+
+  export ZSH_CUSTOM="$HOME/.config/oh-my-zsh/custom"
+
+  echo -e "Installing oh-my-zsh plugins...\n"
+  echo -e "1. Installing Powerlevel10k plugin...\n"
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  echo -e "2. Installing zsh-syntax-highlighting plugin...\n"
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  echo "3. Installing zsh-autosuggestions plugins..."
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+}
+
+#: }}}
+
+#: Change default shell to zsh {{{
+
+change_shell_to_zsh() {
+  echo -e "Changing default shell to zsh...\n"
+  chsh -s $(which zsh)
+}
+
+#: }}}
+
+#: Fixes {{{
+
+# Fixing zsh insecurity (due to homebrew autocompletion)
+# See: https://www.wezm.net/technical/2008/09/zsh-cygwin-and-insecure-directories/
+# See: https://stackoverflow.com/questions/13762280/zsh-compinit-insecure-directories
+# See: https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
+# zsh compinit: insecure directories, run compaudit for list.
+# Ignore insecure directories and continue [y] or abort compinit [n]?
+
+fix_insecure_dir() {
+  #compaudit | xargs chmod g-w  # Deprecated in favor of oficial brew command below
+  chmod -R go-w "$(brew --prefix)/share"
+  # TODO: compinit command does not work inside bash
+  # it must be evoked within zsh
+  # and compinit must be autoloaded before running compinit
+  #autoload -Uz compinit && compinit
+
+  #rm -f ~/.zcompdump; compinit
+}
+
+# zsh compinit: insecure directories, run compaudit for list.
+
+#: }}}
+
+#: Symlinks and folder arrangment {{{
+
+detect_dotconfig() {
+
+  echo "Detecting the presence of $HOME/.config..."
+  
+  if [ ! -d "$dir_config" ]; then
+    echo "$dir_config does not exist." 
+    echo -e "Making $dir_config directory \n"
+    mkdir $test
+  else
+    echo -e "$dir_config already exists \n"
+  fi
+
+}
+
+# Symlink the files and folders from the argument of the function
+# to $HOME/.config
+
+symlink_file_dir() {
+  
+  echo "Detecting if config files are already sylinked..."
+  local f=$1
+  for entry in "$f"/*
+  do
+    ln -s $entry $HOME/.config 
+  done
+  echo ""
+
+}
+
+#: }}}
+
+#: }}}
+
+#: Installing gui apps, cli tools and config files {{{
+
+# Welcome message
+echo -e "\nStarting bootstrapping for macOS Mojave...\n"
+
+# Detecting if $HOME/.config folder exists if not create it
+detect_dotconfig
+
+# Detecting if the config files already exists and are symlinked
+# Files and folders are symlinked from $dir_dotconfig to $HOME/.config
+symlink_file_dir $dir_dotconfig
+
+# Checking if xcodetools are installed. If not install them.
+install_xcodetools
+
+# Install homebrew if not found
+install_brew
+
+# Upgrading homebrew / installing and upgrading apps from Brewfile
+# It'll be executed every time this script is run
+install_brewfile
+
+# Install oh-my-zsh framework for zsh. Zsh was already installed by Homebrew
+install_oh_my_zsh
+# Install oh_my_zsh plugins
+install_omz_plugins
+
+# asdf-vm
+# Install asdf plugins if they are not found
+install_asdf_plugins
+# Install programming languages using asdf if they aren't found
+install_asdf_langs
+
+# System & apps configs
+# Trigger other scripts
+
+# Change default shell to zsh
+change_shell_to_zsh
+
+#: }}}
