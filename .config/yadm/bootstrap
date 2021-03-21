@@ -15,6 +15,31 @@ MACOS_BIGSUR_BOOTS="$HOME/.config/yadm/macos/bigsur_bootstrap"
 
 #: {{{ Functions
 
+
+install_brew() {
+
+  echo "Detecting if Homebrew package manager is already installed"
+  if ! command -v brew &> /dev/null; then
+    echo "Homebrew is NOT installed"
+    echo "Installing Homebrew Package Manager..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  else
+    echo -e "Homebrew is already installed.\n"
+  fi
+
+}
+
+install_yadm() {
+
+  if ! command -v yadm &> /dev/null; then
+    echo "Yadm is NOT installed"
+    echo "Installing yadm (Yet Another Dotfile Manager)..."
+    brew install yadm
+  else
+    echo -e "Yadm is already installed.\n"
+  fi
+}
+
 # Confirm bootstraping action
 # Accepts bootstrap file location as function argument
 ask_confirmation() {
@@ -25,7 +50,7 @@ ask_confirmation() {
   while true; do
       read -p "Do you wish to run bootstrap files? (y/n): " yn
       case $yn in
-  	[Yy]* ) bash $boostrap_file; break;;
+  	[Yy]* ) install_brew; install_yadm; bash $boostrap_file; break;;
   	[Nn]* ) echo "Aborting..."; break;;
   	* ) echo "Please answer yes or no.";;
       esac
