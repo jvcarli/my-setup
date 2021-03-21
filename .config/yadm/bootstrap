@@ -8,7 +8,8 @@
 SYSTEM_TYPE=$(uname -s)  # Valid for UNIX / UNIX like systems
 
 MACOS_VERSION=$(sw_vers -productVersion)  # gets macOS version number
-MACOS_MOJAVE_BOOTS="$HOME/.config/macos/bootstrap/mojave_bootstrap"
+MACOS_MOJAVE_BOOTS="$HOME/.config/yadm/macos/mojave_bootstrap"
+MACOS_BIGSUR_BOOTS="$HOME/.config/yadm/macos/bigsur_bootstrap"
 
 #: }}}
 
