@@ -16,7 +16,7 @@ fi
 
 # omz - ZSH and ZSH CUSTOM DIR paths {{{
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/dev/.config/omz"
+export ZSH="$HOME/.config/omz"
 
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=$HOME/.config/omz-custom
