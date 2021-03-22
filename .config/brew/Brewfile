@@ -123,7 +123,6 @@ cask "font-hack-nerd-font"
 cask "font-iosevka-nerd-font"
 cask "font-source-code-pro"
 cask "font-victor-mono-nerd-font"
-cask "fsnotes"
 cask "goland"
 cask "grandperspective"
 cask "hammerspoon"
@@ -167,16 +166,5 @@ cask "webstorm"
 cask "whatsapp"
 cask "whichspace"
 mas "1Password 7", id: 1333542190
-mas "AdGuard for Safari", id: 1440147259
-mas "Annotate", id: 918207447
 mas "Clocker", id: 1056643111
-mas "Evernote", id: 406056744
-mas "Install macOS High Sierra", id: 0
-mas "Install macOS Mojave", id: 0
-mas "Install OS X Mavericks", id: 675248567
-mas "Install OS X Yosemite", id: 0
-mas "Keka", id: 470158793
-mas "Pocket", id: 568494494
 mas "Todoist", id: 585829637
-mas "Todoist", id: 585829637
-mas "WhatsApp", id: 1147396723
