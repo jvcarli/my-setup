@@ -6,7 +6,7 @@
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
-osascript -e 'tell application "System Preferences" to quit'
+osascript -e 'tell application "System Preferences" to quit' #working on Big Sur
 
 # TODO test sudo command. Ask for the administrator password upfront
 sudo -v
@@ -17,6 +17,8 @@ sudo -v
 
 # TODO find command that disable the sound effects on boot
 # for macos Mojave none of the commands bellow works:
+# for Big Sur you can change this option on the UI
+
 #sudo nvram SystemAudioVolume=" " does not work
 #sudo nvram SystemAudioVolume=%80 does not work
 #sudo nvram SystemAudioVolume=%00 does not work
@@ -27,7 +29,7 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
 # Hide files and icons from Desktop
-defaults write com.apple.finder CreateDesktop false
+defaults write com.apple.finder CreateDesktop false  # working on Big Sur
 killall Finder
 ###############################################################################
 # Keyboard                                                                    #
@@ -35,8 +37,8 @@ killall Finder
 
 # Blazingly fast key repeat os macos, very useful for vim, needs reboot
 # Set a blazingly fast keyboard repeat rate
-defaults write NSGlobalDomain KeyRepeat -int 1
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
+defaults write NSGlobalDomain KeyRepeat -int 1  # working on Bigsur
+defaults write NSGlobalDomain InitialKeyRepeat -int 10  #working on Big Sur
 # Alternatively, for a slight slower value you can use 
 #defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
