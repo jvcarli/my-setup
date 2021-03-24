@@ -96,7 +96,7 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 # Aliases are defined as plugins too.
 # For a full list of active aliases, run `alias`.
-plugins=(asdf colored-man-pages my-aliases kitty-autocompletion zsh-syntax-highlighting zsh-autosuggestions vi-mode osx)
+plugins=(asdf colored-man-pages my-aliases kitty-autocompletion zsh-syntax-highlighting zsh-autosuggestions vi-mode osx goku)
 # }}}
 
 source $ZSH/oh-my-zsh.sh
@@ -160,3 +160,5 @@ export PATH="/usr/local/opt/postgresql@11/bin:$PATH"
 # To customize prompt, run `p10k configure` or edit ~/.config/p10k/p10k.zsh.
 [[ ! -f ~/.config/p10k/p10k.zsh ]] || source ~/.config/p10k/p10k.zsh
 # }}}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
