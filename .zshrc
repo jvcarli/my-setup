@@ -88,6 +88,7 @@ COMPLETION_WAITING_DOTS="true"
 # HIST_STAMPS="mm/dd/yyyy"
 # }}}
 
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7,bg=8,bold,underline"
 # omz - Plugins {{{
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -100,7 +101,6 @@ plugins=(asdf colored-man-pages my-aliases kitty-autocompletion zsh-syntax-highl
 # }}}
 
 source $ZSH/oh-my-zsh.sh
-
 # User configuration - basically `exports` and p10k shell command {{{
 
 # MANPATH {{{
@@ -115,7 +115,7 @@ export LANG=en_US.UTF-8
 
 # Default editor {{{
 # Preferred editor for local and remote sessions
-export EDITOR='vim'
+export EDITOR='nvim'
 #if [[ -n $SSH_CONNECTION ]]; then
 #  export EDITOR='vim'
 #else
