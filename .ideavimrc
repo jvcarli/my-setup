@@ -1,0 +1,33 @@
+""" IdeaVim plugin configuration
+
+""" Leader key
+" Set spacebar as the leader key
+let mapleader = "\<Space>"
+
+""" Line number config
+" outer lines are displayed in relative numbers
+" current line is show with the actual line number
+set relativenumber number
+
+""" Ideajoin, set ideajoin => TODO: learn more about it
+
+""" Plugins
+" NERDTree emulation mode
+set NERDTree
+map <leader>n :NERDTreeToggle<CR>
+
+""" IDE exclusive actions
+" Map -> start debug
+map <leader>d <Action>(Debug)
+
+" Map -> toggle the breakpoint on the current line
+map <leader>b <Action>(ToggleLineBreakpoint)
+
+" Map to the Reformat Code action
+map <leader>r <Action>(RenameElement)
+
+" Map to open terminal window
+map <leader>t <Action>(ActivateTerminalToolWindow)
+
+" Map to mark as a bookmark (think of it as a favorite location)
+map <leader>f <Action>(ToggleBookmark)
