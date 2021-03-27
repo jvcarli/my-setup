@@ -23,11 +23,11 @@ map <leader>d <Action>(Debug)
 " Map -> toggle the breakpoint on the current line
 map <leader>b <Action>(ToggleLineBreakpoint)
 
-" Map to the Reformat Code action
+" Map -> Reformat code
 map <leader>r <Action>(RenameElement)
 
-" Map to open terminal window
+" Map -> open terminal window
 map <leader>t <Action>(ActivateTerminalToolWindow)
 
-" Map to mark as a bookmark (think of it as a favorite location)
+" Map -> mark as a bookmark (think of it as a favorite location)
 map <leader>f <Action>(ToggleBookmark)
