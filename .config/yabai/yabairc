@@ -132,6 +132,10 @@ yabai -m rule --add app="^Firefox$" title="^Opening .*$" manage=off
 yabai -m rule --add app="^PyCharm$" title="Welcome to PyCharm" manage=off
 # Always float WebStorm welcome window
 yabai -m rule --add app="^WebStorm$" title="Welcome to WebStorm" manage=off
+# Always float WebStorm preferences window
+yabai -m rule --add app="^WebStorm$" title="Preferences" manage=off
+# Always float WebStorm Run/Debug configurations window
+yabai -m rule --add app="^WebStorm$" title="Run/Debug Configurations" manage=off
 
 # Calculator
 yabai -m rule --add app="^Calculator$" manage=off
