@@ -24,13 +24,13 @@ ZSH_CUSTOM=$HOME/.config/omz-custom
 
 # omz - Update behavior {{{
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to automatically update without prompting.
 # DISABLE_UPDATE_PROMPT="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-export UPDATE_ZSH_DAYS=7
+#export UPDATE_ZSH_DAYS=7
 # }}}
 
 # omz - Zsh prompt theme {{{
@@ -41,6 +41,7 @@ export UPDATE_ZSH_DAYS=7
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
 #ZSH_THEME="spaceship-prompt/spaceship"
+#ZSH_THEME="random"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -89,6 +90,7 @@ COMPLETION_WAITING_DOTS="true"
 # }}}
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7,bg=8,bold,underline"
+
 # omz - Plugins {{{
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -97,7 +99,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7,bg=8,bold,underline"
 # Add wisely, as too many plugins slow down shell startup.
 # Aliases are defined as plugins too.
 # For a full list of active aliases, run `alias`.
-plugins=(asdf colored-man-pages my-aliases kitty-autocompletion zsh-syntax-highlighting zsh-autosuggestions vi-mode osx goku)
+plugins=(zsh-syntax-highlighting zsh-autosuggestions asdf asdf-direnv my-aliases vi-mode)
+# Disabled: goku, colored-man-pages, osx, kitty-autocompletion docker docker-compose
 # }}}
 
 source $ZSH/oh-my-zsh.sh
@@ -115,12 +118,11 @@ export LANG=en_US.UTF-8
 
 # Default editor {{{
 # Preferred editor for local and remote sessions
-export EDITOR='nvim'
-#if [[ -n $SSH_CONNECTION ]]; then
-#  export EDITOR='vim'
-#else
-#  export EDITOR='mvim'
-#fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 #}}}
 
 # Compilation flags {{{
@@ -152,13 +154,18 @@ export PATH="/usr/local/sbin:$PATH"
 # }}}
 
 # gnup grep
-PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+# not being installed and used currently, using ripgrep instead 
+# PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 
 # Postgresql 11
-export PATH="/usr/local/opt/postgresql@11/bin:$PATH"
+# export PATH="/usr/local/opt/postgresql@11/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.config/p10k/p10k.zsh.
 [[ ! -f ~/.config/p10k/p10k.zsh ]] || source ~/.config/p10k/p10k.zsh
 # }}}
 
+export PATH="$PATH:/Users/development/.local/bin"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#eval "$(starship init zsh)"
