@@ -136,6 +136,11 @@ yabai -m rule --add app="^WebStorm$" title="Welcome to WebStorm" manage=off
 yabai -m rule --add app="^WebStorm$" title="Preferences" manage=off
 # Always float WebStorm Run/Debug configurations window
 yabai -m rule --add app="^WebStorm$" title="Run/Debug Configurations" manage=off
+# Always float any window that has settings in its title
+yabai -m rule --add app="^WebStorm$" title="Language Injection Settings" manage=off
+
+# Karabiner-Elements
+yabai -m rule --add app="^Karabiner-Elements$" title="Karabiner-Elements Preferences" manage=off
 
 # Calculator
 yabai -m rule --add app="^Calculator$" manage=off
