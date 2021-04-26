@@ -1,6 +1,6 @@
 ---
 # The editor to use with 'cheat -e <sheet>'. Defaults to $EDITOR or $VISUAL.
-editor: vim
+editor: nvim
 
 # Should 'cheat' always colorize output?
 colorize: true
@@ -48,14 +48,14 @@ cheatpaths:
   # Once downloaded, ensure that 'path' below points to the location at which
   # you downloaded the community cheatsheets.
   - name: community
-    path: /Users/dev/.config/cheat/cheatsheets/community
+    path: /Users/development/.config/cheat/cheatsheets/community
     tags: [ community ]
     readonly: true
 
   # If you have personalized cheatsheets, list them last. They will take
   # precedence over the more global cheatsheets.
   - name: personal
-    path: /Users/dev/.config/cheat/cheatsheets/personal
+    path: /Users/development/.config/cheat/cheatsheets/personal
     tags: [ personal ]
     readonly: false
 
