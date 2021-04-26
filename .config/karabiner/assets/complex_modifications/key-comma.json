@@ -1,0 +1,32 @@
+{
+  "title": "Change comma `,` key",
+  "rules": [
+    {
+      "description": "Map Hyper + , to vk_none (no key, to avoid System Diagnostics)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "modifiers": {
+              "mandatory": [
+                "left_control",
+				"left_option",
+				"left_command",
+				"left_shift"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            },
+            "key_code": "comma"
+          },
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

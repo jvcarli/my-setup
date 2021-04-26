@@ -2,22 +2,228 @@
   "title": "Change ; key",
   "rules": [
     {
-      "description": "Right control by holding ; key. Regular ; when pressed alone",
+      "description": "Semicolon modifier by holding ; key. Regular ; when pressed alone",
       "manipulators": [
         {
           "type": "basic",
           "from": {
-            "key_code": "semicolon"
+            "key_code": "semicolon",
+            "modifiers": {
+              "mandatory": [],
+              "optional": ["any"]
+            }
           },
+          "to": [
+            {
+              "set_variable": {
+                "name": "semicolon_mod",
+                "value": 1
+              }
+            }
+          ],
           "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "semicolon_mod",
+                "value": 0
+              }
+            }
+          ],
+          "to_if_alone": [
             {
               "key_code": "semicolon"
             }
-          ],
-          "to_if_held_down": [
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "a",
+            "modifiers": {
+              "mandatory": [],
+              "optional": ["any"]
+            }
+          },
+          "to": [
             {
-              "key_code": "right_control",
-              "halt": true
+              "repeat": false,
+              "key_code": "a",
+              "modifiers": ["right_command"]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "semicolon_mod",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "c",
+            "modifiers": {
+              "mandatory": [],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "repeat": false,
+              "key_code": "c",
+              "modifiers": ["right_control"]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "semicolon_mod",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "v",
+            "modifiers": {
+              "mandatory": [],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "repeat": false,
+              "key_code": "v",
+              "modifiers": ["right_control"]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "semicolon_mod",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "mandatory": [],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "repeat": false,
+              "key_code": "r",
+              "modifiers": ["right_control"]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "semicolon_mod",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "b",
+            "modifiers": {
+              "mandatory": [],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "repeat": false,
+              "key_code": "b",
+              "modifiers": ["right_control"]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "semicolon_mod",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "mandatory": [],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "repeat": false,
+              "key_code": "r",
+              "modifiers": ["right_control"]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "semicolon_mod",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "repeat": false,
+              "key_code": "w",
+              "modifiers": ["right_control"]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "semicolon_mod",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "mandatory": [],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "repeat": false,
+              "key_code": "r",
+              "modifiers": ["right_control"]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "semicolon_mod",
+              "value": 1
             }
           ]
         }
@@ -30,9 +236,7 @@
           "type": "basic",
           "from": {
             "modifiers": {
-              "mandatory": [
-                "left_control"
-              ]
+              "mandatory": ["left_control"]
             },
             "key_code": "semicolon"
           },
@@ -40,9 +244,7 @@
             {
               "repeat": true,
               "key_code": "delete_or_backspace",
-              "modifiers": [
-                "left_option"
-              ]
+              "modifiers": ["left_option"]
             }
           ]
         }
@@ -55,9 +257,7 @@
           "type": "basic",
           "from": {
             "modifiers": {
-              "mandatory": [
-                "left_control"
-              ]
+              "mandatory": ["left_control"]
             },
             "key_code": "semicolon"
           },
@@ -78,14 +278,12 @@
           "from": {
             "modifiers": {
               "mandatory": [
-                 "left_control",
-		             "left_option",
-                 "left_command",
-		             "left_shift"
+                "left_control",
+                "left_option",
+                "left_command",
+                "left_shift"
               ],
-              "optional": [
-                "caps_lock"
-              ]
+              "optional": ["caps_lock"]
             },
             "key_code": "semicolon"
           },
