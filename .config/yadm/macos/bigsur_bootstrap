@@ -4,6 +4,7 @@
 # MACOS BIG SUR BOOTSTRAPING
 
 # TODO: rearragenge order on Brewfile
+# TODO: create function for dealing with Brewfile.lock.json
 # virtualbox and bluestacks should come in the end
 
 #: Variables {{{

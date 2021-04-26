@@ -16,12 +16,12 @@ regenbrewfile_msg="${YELLOW}Regenerating Brewfile...${NC}"
 echo -e $regenbrewfile_msg
 # Force option used to overwrite Brewfile if it
 # already exists.
-# TODO make `yadm add` fail if brew dump fails
+# TODO: make `yadm add` fail if brew dump fails
 brew bundle dump --file=$brewfile --force
 echo -e $success_msg
 
 # Add brewfile to Yadm repo
-# TODO check if file was added to yadm repo
+# TODO: check if file was added to yadm repo
 echo -e "${YELLOW} Adding Brewfile to yadm repository..."
 yadm add $brewfile
 echo -e $success_msg

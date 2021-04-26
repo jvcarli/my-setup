@@ -8,25 +8,25 @@
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit' #working on Big Sur
 
-# TODO test sudo command. Ask for the administrator password upfront
+# TODO: test sudo command. Ask for the administrator password upfront
 sudo -v
 
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
 
-# TODO find command that disable the sound effects on boot
+# TODO: find command that disable the sound effects on boot
 # for macos Mojave none of the commands bellow works:
-# for Big Sur you can change this option on the UI
-
 #sudo nvram SystemAudioVolume=" " does not work
 #sudo nvram SystemAudioVolume=%80 does not work
 #sudo nvram SystemAudioVolume=%00 does not work
 #sudo nvram SystemAudioVolume=%01 does not work
 
+# for Big Sur you can change this option on the UI
+
 # Expand save panel by default
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true  # working on Big Sur
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true  # working on Big Sur
 
 # Hide files and icons from Desktop
 defaults write com.apple.finder CreateDesktop false  # working on Big Sur
@@ -41,22 +41,3 @@ defaults write NSGlobalDomain KeyRepeat -int 1  # working on Bigsur
 defaults write NSGlobalDomain InitialKeyRepeat -int 10  #working on Big Sur
 # Alternatively, for a slight slower value you can use 
 #defaults write NSGlobalDomain InitialKeyRepeat -int 15
-
-###############################################################################
-# Apps                                                                        #
-###############################################################################
-
-# iTerm
-# Make sure iTerm is closed
-osascript -e 'tell application "iTerm" to quit'
-# Make sure there are not cached iTerm preferences at ~/Library/Preferences
-
-# Double check
-iterm_cached_prefs=$(ls | grep com.googlecode.iterm)
-for item in iterm_cached_prefs
-do
-  echo $item
-end
-
-# Copy preferences from $HOME/.config/macos/symlinked/iterm2
-
