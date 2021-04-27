@@ -1,6 +1,6 @@
-# mac-dotfiles
+# dotfiles-macos
 
-Personal dotfiles for macOS Mojave and Big Sur.
+Personal dotfiles for macOS Mojave and Big Sur managed by [yadm](https://github.com/TheLocehiliosan/yadm).
 
 These configurations were primarily tested on Mojave and are guaranteed to function there. They're in migration process to Big Sur.
 
@@ -9,7 +9,6 @@ These configurations were primarily tested on Mojave and are guaranteed to funct
 TODO 
 
 ## FOSS apps
-
 
 ### CLI
 
@@ -78,6 +77,24 @@ Community cheatsheets for [cheat](https://github.com/cheat/cheat) cli
 * [powerlevel10k](https://github.com/romkatv/powerlevel10k)
 * [spaceship-prompt](https://github.com/denysdovhan/spaceship-prompt)
 
+## License
+
+Copyright (C) 2021 João Vítor Carli Pereira
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 ## Todo
 
 - [ ] Add install guide
+
