@@ -9,7 +9,7 @@ let mapleader = "\<Space>"
 " current line is show with the actual line number
 set relativenumber number
 
-""" Ideajoin, set ideajoin => TODO: learn more about it
+""" Ideajoin, set ideajoin => TODO: learn more about Ideajoin
 
 """ Plugins
 " NERDTree emulation mode
