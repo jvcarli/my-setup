@@ -34,13 +34,13 @@
     # =========================[ Line #1 ]=========================
     # os_icon               # os identifier
     dir                     # current directory
+    vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
-    vcs                     # git status
     direnv                  # direnv status (https://direnv.net/)
     asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
     virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
-    # =========================[ Line #2 ]=========================
+    # =========================[ Line #3 ]=========================
     newline                 # \n
     prompt_char             # prompt symbol
   )
@@ -51,6 +51,7 @@
   # last prompt line gets hidden if it would overlap with left prompt.
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
+    #vcs                     # git status 
     status                  # exit code of the last command
     command_execution_time  # duration of the last command
     background_jobs         # presence of background jobs
@@ -607,7 +608,7 @@
   #
   # Note: If this parameter is set to true, it won't hide tools.
   # Tip: Override this parameter for ${TOOL} with POWERLEVEL9K_ASDF_${TOOL}_SHOW_SYSTEM.
-  typeset -g POWERLEVEL9K_ASDF_SHOW_SYSTEM=true
+  typeset -g POWERLEVEL9K_ASDF_SHOW_SYSTEM=false
 
   # If set to non-empty value, hide tools unless there is a file matching the specified file pattern
   # in the current directory, or its parent directory, or its grandparent directory, and so on.
@@ -1587,3 +1588,17 @@ typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
+
+###########################
+##### User customized #####
+###########################
+
+# https://github.com/romkatv/powerlevel10k/issues/481
+# Disable pytho
+#function p10k-on-pre-prompt() {
+#  if [[ -n ${VIRTUAL_ENV-} ]]; then
+#    p10k display '*/asdf'=hide
+#  else
+#    p10k display '*/asdf'=show
+#  fi
+#}
