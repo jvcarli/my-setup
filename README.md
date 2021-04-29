@@ -42,6 +42,7 @@ TODO
 ### Text Editors
 
 * [ideavim](https://github.com/JetBrains/ideavim) - JetBrains vim plugin emulation
+* [neovim](https://github.com/neovim/neovim)
 
 ### Window managers
 
