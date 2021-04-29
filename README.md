@@ -8,7 +8,9 @@ These configurations were primarily tested on Mojave and are guaranteed to funct
 
 TODO 
 
-## FOSS apps
+## Open source apps
+
+The configuration files of the following open source apps are under version control:
 
 ### CLI
 
