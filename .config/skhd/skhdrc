@@ -44,7 +44,7 @@ shift + ctrl + alt - l : yabai -m window --warp east
 
 #: }}}
 
-#: TODO {{{
+#: TODO: configure the section below {{{
 
 # make floating window fill screen
 #shift + alt - up : yabai -m window --grid 1:1:0:0:1:1
@@ -76,7 +76,7 @@ ctrl + alt - n : yabai -m space --destroy;\
 
 cmd + alt - down : yabai -m window --layer below
 cmd + alt - up : yabai -m window --layer above
-# TODO, find out what below layer is about
+# TODO: find out what below layer is about
 #alt - n : yabai -m window --layer normal
 
 #: }}}
@@ -151,7 +151,7 @@ ctrl + cmd - 3  : yabai -m window --display 3; yabai -m display --focus 3
 
 #: }}}
 
-# TODO - learn how it works - {move window}
+# TODO: learn how it works - {move window}
 shift + ctrl - a : yabai -m window --move -20:0
 shift + ctrl - s : yabai -m window --move 0:20
 shift + ctrl - w : yabai -m window --move 0:-20
