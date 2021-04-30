@@ -164,8 +164,10 @@ export PATH="/usr/local/sbin:$PATH"
 [[ ! -f ~/.config/p10k/p10k.zsh ]] || source ~/.config/p10k/p10k.zsh
 # }}}
 
-export PATH="$PATH:/Users/development/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #eval "$(starship init zsh)"
+
+alias luamake=/Users/development/.config/nvim/lua-language-server/3rd/luamake/luamake
