@@ -1,5 +1,6 @@
 MIT License
 
+Copyright (c) 2021 João Vítor Carli Pereira <jvitor.carli@tutamail.com>
 Copyright (c) 2019 Fabrizio Destro <fabrizio@destro.dev>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
