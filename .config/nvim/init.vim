@@ -53,6 +53,9 @@ EOF
 " see: https://github.com/neovim/neovim/pull/13479
 "
 
+" Remap quickly press of `jk` keys to <Esc> when in INSERT mode
+:imap jk <Esc>
+
 " {{{ Tabs, spaces, splits and panes configuration
 
 set tabstop=4 " show <tab> charcter as 4 spaces
