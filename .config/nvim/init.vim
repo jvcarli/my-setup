@@ -87,9 +87,59 @@ augroup numbertoggle
 augroup END
 " }}}
 
+" {{{ Remove tildes - UNUSED - Set the color of non text characters to be the same as the background color
+" https://stackoverflow.com/questions/3813059/is-it-possible-to-not-display-a-for-blank-lines-in-vim-neovim
+" hi NonText guifg=bg
+" }}}
+
+" {{{ nvim terminal
+
+" uses zsh instead of bash
+function! OpenTerminal()
+  split term://zsh
+  " zsh terminal column size
+  resize 10
+endfunction
+
+" open terminal on ctrl+n
+nnoremap <c-n> :call OpenTerminal()<CR>
+
+" start terminal in insert mode
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+
+" turn terminal to normal mode with escape
+tnoremap <Esc> <C-\><C-n>
+
+" }}}
+
+" {{{ Leader key
+" map space to leader key
+" See: https://stackoverflow.com/questions/25341062/vim-let-mapleader-space-annoying-cursor-movement
+nmap <space> <leader>
+" }}}
+
+" Plugins:
+" {{{ vim-telescope
 " Using lua functions
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 " }}}
+
+" NERDTree {{{
+" Show hidden files
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = []
+let g:NERDTreeStatusline = ''
+let g:NERDTreeShowLineNumbers = 0
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Toggle NERDTree with ctrl-b
+nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+" }}}
+
+
+" }}}
+
