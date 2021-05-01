@@ -6085,6 +6085,60 @@
                         ]
                     },
                     {
+                        "description": "Map Hyper + , to vk_none (no key, to avoid System Diagnostics)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "comma",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control",
+                                            "left_option",
+                                            "left_command",
+                                            "left_shift"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "vk_none"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Map Hyper + . to vk_none (no key, to avoid System Diagnostics)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "period",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control",
+                                            "left_option",
+                                            "left_command",
+                                            "left_shift"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "vk_none"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Semicolon modifier by holding ; key. Regular ; when pressed alone",
                         "manipulators": [
                             {
@@ -6141,7 +6195,7 @@
                                     {
                                         "key_code": "a",
                                         "modifiers": [
-                                            "right_command"
+                                            "right_control"
                                         ],
                                         "repeat": false
                                     }
@@ -6340,60 +6394,6 @@
                                             "right_control"
                                         ],
                                         "repeat": false
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Map Hyper + , to vk_none (no key, to avoid System Diagnostics)",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "comma",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "left_control",
-                                            "left_option",
-                                            "left_command",
-                                            "left_shift"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "vk_none"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Map Hyper + . to vk_none (no key, to avoid System Diagnostics)",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "period",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "left_control",
-                                            "left_option",
-                                            "left_command",
-                                            "left_shift"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "vk_none"
                                     }
                                 ],
                                 "type": "basic"
