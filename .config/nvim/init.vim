@@ -17,10 +17,13 @@ vim.api.nvim_set_keymap("n", "<leader>e", "<cmd>LspTroubleToggle<cr>",
   {silent = true, noremap = true}
 )
 
+-- nvim-compe
+-- prerequisite
+vim.o.completeopt = "menuone,noselect"
 -- }}}
 
 -- {{{ Tokyonight theme config
-vim.g.tokyonight_style = "dark" -- day / storm / night
+vim.g.tokyonight_style = "night" -- day / storm / night
 vim.g.tokyonight_italic_functions = true
 vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 
@@ -137,9 +140,10 @@ let g:NERDTreeShowLineNumbers = 0
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle NERDTree with ctrl-b
-nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+"nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+" Toggle NERDTree with leader > n
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 " }}}
-
 
 " }}}
 
