@@ -286,9 +286,10 @@ tmux_conf_theme_right_separator_sub="\uE0B3"  #   PowerlineSymbols.otf font, see
 
 # {{{ Left and right bar: tmux_conf_status_left and tmux_conf_status_right
 
-tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
+#tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
+tmux_conf_theme_status_left=" ❐ #S |"
 #tmux_conf_theme_status_right=" #{prefix}#{pairing}#{synchronized} , %R , %d %b | #{username}#{root} | #{hostname} "
-tmux_conf_theme_status_right=" #{prefix}#{pairing}#{synchronized} | %R , %d %b | #(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD) | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right=" #{prefix}#{pairing}#{synchronized} | %R | #(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD) | #{username}#{root} | #{hostname} "
 # gitbar taken from: https://koenwoortman.com/tmux-show-current-git-branch-in-status-bar/
 
 # status left style
