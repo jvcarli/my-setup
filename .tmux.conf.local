@@ -72,6 +72,7 @@ tmux_conf_theme_colour_14="#151721"    # host font color --- OK
 tmux_conf_theme_colour_15="#1f2335"    # gap / hour / date bar color --- OK
 tmux_conf_theme_colour_16="#414C6C"    # user bar color --- OK
 tmux_conf_theme_colour_17="#7aa2f7"    # host bar color --- OK
+tmux_conf_theme_colour_18="#9ece6a"    # gitbar
 # }}}
 
 # {{{ Nord theme
@@ -286,7 +287,9 @@ tmux_conf_theme_right_separator_sub="\uE0B3"  #   PowerlineSymbols.otf font, see
 # {{{ Left and right bar: tmux_conf_status_left and tmux_conf_status_right
 
 tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
-tmux_conf_theme_status_right=" #{prefix}#{pairing}#{synchronized} , %R , %d %b | #{username}#{root} | #{hostname} "
+#tmux_conf_theme_status_right=" #{prefix}#{pairing}#{synchronized} , %R , %d %b | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right=" #{prefix}#{pairing}#{synchronized} | %R , %d %b | #(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD) | #{username}#{root} | #{hostname} "
+# gitbar taken from: https://koenwoortman.com/tmux-show-current-git-branch-in-status-bar/
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -294,9 +297,12 @@ tmux_conf_theme_status_left_bg="$tmux_conf_theme_colour_9,$tmux_conf_theme_colou
 tmux_conf_theme_status_left_attr="bold,none,none"
 
 # status right style
-tmux_conf_theme_status_right_fg="$tmux_conf_theme_colour_12,$tmux_conf_theme_colour_13,$tmux_conf_theme_colour_14"
-tmux_conf_theme_status_right_bg="$tmux_conf_theme_colour_15,$tmux_conf_theme_colour_16,$tmux_conf_theme_colour_17"
-tmux_conf_theme_status_right_attr="none,none,bold"
+#tmux_conf_theme_status_right_fg="$tmux_conf_theme_colour_12,$tmux_conf_theme_colour_13,$tmux_conf_theme_colour_14"
+#tmux_conf_theme_status_right_bg="$tmux_conf_theme_colour_15,$tmux_conf_theme_colour_16,$tmux_conf_theme_colour_17"
+#tmux_conf_theme_status_right_attr="none,none,bold"
+tmux_conf_theme_status_right_fg="$tmux_conf_theme_colour_12,$tmux_conf_theme_colour_12,$tmux_conf_theme_colour_14,$tmux_conf_theme_colour_17,$tmux_conf_theme_colour_14"
+tmux_conf_theme_status_right_bg="$tmux_conf_theme_colour_1,$tmux_conf_theme_colour_15,$tmux_conf_theme_colour_18,$tmux_conf_theme_colour_16,$tmux_conf_theme_colour_17"
+tmux_conf_theme_status_right_attr="none,none,none,none,bold"
 
 # iTerm2 - $ tmux -CC
 # Left for using with integrated iTerm2 status bar
