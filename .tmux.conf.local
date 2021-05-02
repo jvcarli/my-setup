@@ -442,8 +442,11 @@ bind C-a send-prefix
 
 # {{{ -- tmux-plugin-manager (tpm) -----------------------------------------------------------------------
 
-# while I don't use tpm myself, many people requested official support so here
-# is a seamless integration that automatically installs plugins in parallel
+# TODO: open issue: with oh-my-tmux it seems to be impossible
+# to change the default tpm plugin directory. Default ~/.tmux works fine
+# Change defualt tpm plugin directory
+# variable expansion such as $HOME does NOT work here
+#set-environment -g TMUX_PLUGIN_MANAGER_PATH '.local/share/tmux/plugins'
 
 # whenever a plugin introduces a variable to be used in 'status-left' or
 # 'status-right', you can use it in 'tmux_conf_theme_status_left' and
@@ -452,7 +455,7 @@ bind C-a send-prefix
 # by default, launching tmux will update tpm and all plugins
 #   - true (default)
 #   - false
-tmux_conf_update_plugins_on_launch=true
+tmux_conf_update_plugins_on_launch=false
 
 # by default, reloading the configuration will update tpm and all plugins
 #   - true (default)
@@ -464,11 +467,12 @@ tmux_conf_update_plugins_on_reload=true
 
 # to enable a plugin, use the 'set -g @plugin' syntax:
 # visit https://github.com/tmux-plugins for available plugins
-#set -g @plugin 'tmux-plugins/tmux-copycat'
-#set -g @plugin 'tmux-plugins/tmux-cpu'
-#set -g @plugin 'tmux-plugins/tmux-resurrect'
-#set -g @plugin 'tmux-plugins/tmux-continuum'
-#set -g @continuum-restore 'on'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+
+# tmux-resurrect configuration
+set -g @resurrect-dir '$HOME/.local/share/tmux/tmux-resurrect'
+set -g @resurrect-save 'S'
+set -g @resurrect-restore 'R'
 
 # }}}
 
