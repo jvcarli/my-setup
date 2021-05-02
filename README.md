@@ -41,6 +41,10 @@ The configuration files of the following open source apps are under version cont
 * [iTerm2](https://github.com/gnachman/iTerm2)
 * [Kitty](https://github.com/kovidgoyal/kitty)
 
+### Terminal Multiplexer
+
+* [tmux](https://github.com/tmux/tmux)
+
 ### Text Editors
 
 * [ideavim](https://github.com/JetBrains/ideavim) - JetBrains vim plugin emulation
@@ -79,6 +83,10 @@ Community cheatsheets for [cheat](https://github.com/cheat/cheat) cli
 
 * [powerlevel10k](https://github.com/romkatv/powerlevel10k)
 * [spaceship-prompt](https://github.com/denysdovhan/spaceship-prompt)
+
+### Tmux
+
+* [oh-my-tmux](https://github.com/gpakosz/.tmux)
 
 ## License
 
