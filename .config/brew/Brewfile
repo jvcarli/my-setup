@@ -72,6 +72,7 @@ brew "neovim", args: ["HEAD"]
 brew "ninja"
 brew "openblas"
 brew "pandoc"
+brew "peco"
 brew "php"
 brew "pipenv"
 brew "py3cairo"
