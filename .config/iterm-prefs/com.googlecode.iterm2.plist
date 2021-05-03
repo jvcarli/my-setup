@@ -62370,7 +62370,7 @@
 			<key>ASCII Anti Aliased</key>
 			<true/>
 			<key>ASCII Ligatures</key>
-			<true/>
+			<false/>
 			<key>AWDS Pane Directory</key>
 			<string></string>
 			<key>AWDS Pane Option</key>
@@ -63070,7 +63070,7 @@
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
-			<string>FantasqueSansMonoNerdFontComplete-Regular 18</string>
+			<string>FantasqueSansMonoNerdFontComplete-Regular 24</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Non-ASCII Ligatures</key>
@@ -63442,7 +63442,7 @@
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Non-ASCII Font</key>
-			<false/>
+			<true/>
 			<key>Use Tab Color</key>
 			<false/>
 			<key>Use Underline Color</key>
@@ -66352,7 +66352,7 @@
 	<key>TabsHaveCloseButton</key>
 	<true/>
 	<key>TerminalMargin</key>
-	<integer>10</integer>
+	<integer>0</integer>
 	<key>TerminalVMargin</key>
 	<integer>0</integer>
 	<key>ThreeFingerEmulates</key>
