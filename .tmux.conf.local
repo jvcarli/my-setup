@@ -159,7 +159,7 @@ tmux_conf_theme_pane_border_style=thin
 
 # pane borders colours:
 tmux_conf_theme_pane_border="$tmux_conf_theme_colour_2"
-tmux_conf_theme_pane_active_border="$tmux_conf_theme_colour_4"
+tmux_conf_theme_pane_active_border="$tmux_conf_theme_colour_17"
 
 # pane indicator colours (when you hit <prefix> + q)
 tmux_conf_theme_pane_indicator="$tmux_conf_theme_colour_4"
@@ -420,8 +420,9 @@ tmux_conf_copy_to_os_clipboard=false
 # this is the place to override or undo settings
 
 # Change $TERM to `xterm-kitty` if kitty terminal is being used
-# kitty won't function properly if $TERM env variable isn't set properly
-if-shell '[ "$TERM" = "xterm-kitty" ]' 'set -g default-terminal "xterm-kitty"' 'set -g default-terminal "screen-256color"'
+# Using xterm-256color instead of screen-256color for other terminals
+# because screen-256color DOES NOT support italic fonts
+if-shell '[ "$TERM" = "xterm-kitty" ]' 'set -g default-terminal "xterm-kitty"' 'set -g default-terminal "xterm-256color"'
 
 # increase history size
 # default is 10000
