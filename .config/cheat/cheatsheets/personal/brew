@@ -1,1 +1,9 @@
 # TODO: add useful brew commands 
+
+# List currently tapped repositories
+brew tap
+
+# Upgrade following the HEAD of the repoistory
+brew upgrade <formula> --fetch-HEAD
+# example:
+# brew upgrade neovim --fetch-HEAD
