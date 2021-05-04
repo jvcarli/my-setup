@@ -104,6 +104,15 @@ install_asdf_langs() {
 
 #: }}}
 
+#: Tmux  {{{
+# tmux_resurrect
+create_tmux_ressurect_dir() {
+    RESURRECTDIR="$HOME/.local/share/tmux/tmux-resurrect"
+    echo "Creating Tmux Ressurect directory"
+    mkdir -p $RESURRECTDIR
+}
+#: }}}
+
 #: }}}
 
 #: Change default shell to zsh {{{
@@ -197,6 +206,9 @@ install_brewfile
 install_asdf_plugins
 # Install programming languages using asdf if they aren't found
 install_asdf_langs
+
+#Tmux
+create_tmux_ressurect_dir
 
 # System & apps configs
 # Trigger other scripts
