@@ -75,10 +75,16 @@ yabai -m config mouse_action1 move
 yabai -m config mouse_action2 resize
 
 # set focus follows mouse mode (default: off, options: off, autoraise, autofocus)
-yabai -m config focus_follows_mouse autofocus
+# autofocus (window gets focused, but not raised) or
+# autoraise (window gets raised as if it was clicked on).
+# Focus follows mouse is disabled while holding the mouse modifier key so that is possible access the menu bar easily.
+yabai -m config focus_follows_mouse autoraise
 
+# Mouse follows focus makes it so that when yabai
+# focuses another window (e.g. through a focus command),
+# the mouse cursor gets moved to the center of the focused window.
 # set mouse follows focus mode (default: off)
-yabai -m config mouse_follows_focus off
+yabai -m config mouse_follows_focus on
 #: }}}
 
 #: Window modifications {{{
@@ -115,6 +121,9 @@ yabai -m config window_opacity off
 # Always float the whole app
 yabai -m rule --add app="^System Preferences$" manage=off
 
+# Calculator
+yabai -m rule --add app="^Calculator$" manage=off
+
 # Flux
 # Always float the whole app
 yabai -m rule --add app="^Flux$" manage=off
@@ -142,12 +151,9 @@ yabai -m rule --add app="^WebStorm$" title="Language Injection Settings" manage=
 # Karabiner-Elements
 yabai -m rule --add app="^Karabiner-Elements$" title="Karabiner-Elements Preferences" manage=off
 
-# Calculator
-yabai -m rule --add app="^Calculator$" manage=off
-
 # Finder
 # NOT WORKING
-# Always float dialgo boxes
+# TODO: make finder dialog boxes always float
 # yabai -m rule --add app="^Finder$" title="^Opening .*$" manage=off
 #: }}}
 
