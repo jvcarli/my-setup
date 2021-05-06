@@ -100,7 +100,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7,bg=8,bold,underline"
 # Aliases are defined as plugins too.
 # For a full list of active aliases, run `alias`.
 plugins=(zsh-syntax-highlighting zsh-autosuggestions asdf asdf-direnv my-aliases vi-mode osx)
-# Disabled: goku, colored-man-pages, osx, kitty-autocompletion docker docker-compose
+# Disabled: goku, colored-man-pages, kitty-autocompletion docker docker-compose
 # }}}
 
 source $ZSH/oh-my-zsh.sh
@@ -167,6 +167,8 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(zoxide init zsh)"
 
 #eval "$(starship init zsh)"
 
