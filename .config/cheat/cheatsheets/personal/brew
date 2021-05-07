@@ -1,4 +1,5 @@
-# TODO: add useful brew commands 
+# List upgradable formulas
+brew outdated
 
 # List currently tapped repositories
 brew tap

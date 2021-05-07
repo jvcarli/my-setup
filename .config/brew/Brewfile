@@ -104,7 +104,7 @@ brew "zlib"
 brew "znapzend"
 brew "zoxide"
 brew "zsh"
-brew "zsh-completions"
+brew "zsh-completions", link: false
 brew "federico-terzi/espanso/espanso"
 brew "iterate-ch/cyberduck/duck"
 brew "jesseduffield/lazydocker/lazydocker"
