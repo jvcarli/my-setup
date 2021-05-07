@@ -1,5 +1,5 @@
-# skhd config. macos version of sxkhd for linux
 # vim:fileencoding=utf-8:ft=conf:foldmethod=marker
+# skhd config. macos version of sxkhd for linux
 # Hyper key = Caps lock (shift + ctrl + atl + command)
 # Left command is mapped to: ctrl + alt
 
@@ -18,7 +18,12 @@
 #: Reload yabai {{{
 
 # Reload yabai homebrew service
-shift + ctrl + alt - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+#shift + ctrl + alt - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+# For some reason the command above gives a status error
+# when yabai service reloads
+# Calling `brew services` directly is a little bit slowly
+# but solves this issue
+shift + ctrl + alt - r : brew services restart yabai 
 
 #:}}}
 
@@ -30,24 +35,28 @@ ctrl + alt - j : yabai -m window --focus south
 ctrl + alt - k : yabai -m window --focus north
 ctrl + alt - l : yabai -m window --focus east
 
-# move window
-shift + ctrl + alt - h : yabai -m window --warp west
-shift + ctrl + alt - j : yabai -m window --warp south
-shift + ctrl + alt - k : yabai -m window --warp north
-shift + ctrl + alt - l : yabai -m window --warp east
+# Swap windows one with each other
+shift + ctrl + alt - h : yabai -m window --swap west
+shift + ctrl + alt - j : yabai -m window --swap south
+shift + ctrl + alt - k : yabai -m window --swap north
+shift + ctrl + alt - l : yabai -m window --swap east
 
-# swap window (revise the need of using it)
-#shift + alt - h : yabai -m window --swap west
-#shift + alt - j : yabai -m window --swap south
-#shift + alt - k : yabai -m window --swap north
-#shift + alt - l : yabai -m window --swap east
+# move window warping it in the space of the other
+# e.g.: one window doesn't switch with each other
+# instead they start to share the space (divide)
+# of the target window
+shift + alt - h : yabai -m window --warp west
+shift + alt - j : yabai -m window --warp south
+shift + alt - k : yabai -m window --warp north
+shift + alt - l : yabai -m window --warp east
+
 
 #: }}}
 
 #: TODO: configure the section below {{{
 
 # make floating window fill screen
-#shift + alt - up : yabai -m window --grid 1:1:0:0:1:1
+shift + ctrl + alt - up : yabai -m window --grid 1:1:0:0:1:1
 
 # create desktop, move window and follow focus
 #shift + cmd - n : yabai -m space --create;\
@@ -253,7 +262,7 @@ resize < o : yabai -m space --balance
 
 #: }}}
 
-#: App launcher {{{
+#: App launcher Mode {{{
 
 # iTerm2 terminal
 # Both commands are working, "open -na iTerm" is just a fallback option
@@ -262,6 +271,7 @@ shift + ctrl + alt - return : osascript -e 'tell application "iTerm2" to create 
 
 # Kitty terminal
 #ctrl + alt - return : kitty --single-instance --directory ~/Projects
+# Opens single instance of kitty in ~/Projects directory
 ctrl + alt - return : kitty --directory ~/Projects
 
 #: }}}
