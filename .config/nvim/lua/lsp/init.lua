@@ -39,20 +39,16 @@ vim.lsp.protocol.CompletionItemKind = {
 
 -- TODO: configure eslint and prettier
 -- Formatters (efm-langserver) {{{ 
-local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...)
-        vim.api.nvim_buf_set_keymap(bufnr, ...)
-    end
-end
 
 local prettier = require "efm/prettier"
+-- local luafmt = require "efm/luafmt"
 
 local efm_languages = {
     lua = {luafmt},
-    typescript = {prettier, eslint},
-    javascript = {prettier, eslint},
-    typescriptreact = {prettier, eslint},
-    javascriptreact = {prettier, eslint},
+    typescript = {prettier},
+    javascript = {prettier},
+    typescriptreact = {prettier},
+    javascriptreact = {prettier},
     yaml = {prettier},
     json = {prettier},
     html = {prettier},
@@ -63,11 +59,11 @@ local efm_languages = {
 }
 
 lspconfig.efm.setup {
-    root_dir = lspconfig.util.root_pattern("yarn.lock", "package-lock.json", "lerna.json", ".git"),
+    cmd = {"efm-langserver"},
+    root_dir = lspconfig.util.root_pattern(".git"),
     filetypes = vim.tbl_keys(efm_languages),
     init_options = {documentFormatting = true, codeAction = true},
     settings = {languages = efm_languages},
-    on_attach = on_attach
 }
 
 -- local prettier = {
@@ -147,16 +143,17 @@ lspconfig.efm.setup {
 lspconfig.tsserver.setup {
     -- See: https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#tsserver
     -- Use globally installed typescript-language-server
-    -- the FULL PATH MUST BE declared MANUALLY 
-    -- because `asdf` use shims to change bin executables 
-    -- if there's a `.tool-versions` file in the working directory.
+    -- the FULL PATH CAN'T BE declared MANUALLY 
+    -- because `asdf` will get confused  
+    -- when there's a `.tool-versions` file in the working directory.
     --
     -- tsserver dependencies (nodejs): typescript and typescript-language-server
-    -- install them with: `npm install -g typescript typescript-language-server`
-    cmd = {
-        "/Users/development/.asdf/installs/nodejs/14.15.4/.npm/bin/typescript-language-server",
-        "--stdio"
-    },
+    -- install them GLOBALLY in EVERY asdf managed NodeJS with: 
+    -- `npm install -g typescript typescript-language-server`
+    -- the shim path is declared instead of just `typescript-language-server`
+    -- becuase nvim lsp will produce errors if not
+    -- cmd = {"/Users/development/.asdf/shims/typescript-language-server", "--stdio" }
+    cmd = {"typescript-language-server", "--stdio" }
 
 }
 -- }}}
@@ -309,7 +306,7 @@ lspconfig.pyright.setup {
 
 -- }}}
 
--- {{{ Golang official gopls language server
+-- {{{ gopls - Golang official language server
 -- See: https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-v050
 lspconfig.gopls.setup {
     cmd = {"gopls", "serve"},
