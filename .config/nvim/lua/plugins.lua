@@ -165,16 +165,30 @@ require("packer").startup(
         use {
             'hrsh7th/nvim-compe',
             config = function()
-              require"compe".setup {
-                preselect = "always",
-                source = {
-                    path = true,
-                    buffer = true,
-                    vsnip = true,
-                    nvim_lsp = true,
-                    nvim_lua = true
+                require'compe'.setup {
+                    enabled = true;
+                    autocomplete = true;
+                    debug = false;
+                    min_length = 1;
+                    preselect = 'enable';
+                    throttle_time = 80;
+                    source_timeout = 200;
+                    incomplete_delay = 400;
+                    max_abbr_width = 100;
+                    max_kind_width = 100;
+                    max_menu_width = 100;
+                    documentation = true;
+
+                    source = {
+                        path = true;
+                        buffer = true;
+                        calc = true;
+                        nvim_lsp = true;
+                        nvim_lua = true;
+                        vsnip = true;
+                        ultisnips = true;
+                    };
                 }
-            }
             end
         }
 
@@ -191,6 +205,9 @@ require("packer").startup(
             end
         }
 
+        -- nvim-lsp-ts-utils: tsserver enhancer
+        use "jose-elias-alvarez/nvim-lsp-ts-utils"
+
         -- nvim-dap
         use {
             'mfussenegger/nvim-dap',
@@ -203,20 +220,6 @@ require("packer").startup(
         -- }}}
 
         -- vimscrip plugins
-        -- Black python formater
-        -- vimscrypt syntax config
-        -- use 'psf/black'
-        --  psf-black python formater
-        --  See: https://github.com/psf/black/blob/master/docs/editor_integration.md
-        --  neovim needs provier-python enabled
-        --  See: https://github.com/psf/black/issues/1149
-        --  Due to often usage of per-project virtualenvs
-        --  a virtualenv for Neovim must be hard-coded
-        --  via g:python3_host_prog
-        --  See: nvim :help provider-python
-        -- 
-        --  Run black on save:
-        --  autocmd BufWritePre *.py execute ':Black'
 
         -- ultisnips - vim snippet engine
         -- track the engine
@@ -224,6 +227,11 @@ require("packer").startup(
         -- snippets are separeted from the engine:
         -- vim-snippets
         use 'honza/vim-snippets'
+
+        -- emmet-vim
+        -- see: https://github.com/mattn/emmet-vim
+        -- emmet plugin keymappings are stored in nvim/lua/mappings.lua
+        use 'mattn/emmet-vim'
 
     end
 )
