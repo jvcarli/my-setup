@@ -46,13 +46,15 @@ local on_attach = function(client)
     end
 end
 
--- TODO: configure eslint and prettier
+-- TODO: configure eslint
 -- Formatters (efm-langserver) {{{ 
 
 local prettier = require "efm/prettier"
 local black = require "efm/black"
+local shellcheck = require "efm/shellcheck"
 -- local luafmt = require "efm/luafmt"
 
+-- efm-langserver main setup
 lspconfig.efm.setup{
     init_options = {documentFormatting = true},
     on_attach = on_attach,
@@ -70,6 +72,7 @@ lspconfig.efm.setup{
             html = {prettier},
             scss = {prettier},
             css = {prettier},
+            sh = {shellcheck},
             markdown = {prettier}
         }
     }
@@ -174,8 +177,11 @@ lspconfig.tsserver.setup {
 -- }}}
 
 -- {{{ svelte-language-server
+-- You MUST install svelteserver GLOBALLY in every asdf managed NodeJs with:
+-- npm install -g svelte-language-server
 lspconfig.svelte.setup{
-    cmd = {"/Users/development/.asdf/installs/nodejs/14.15.4/.npm/bin/svelteserver", "--stdio"}
+    cmd = {"svelteserver", "--stdio"},
+    filetypes = { "svelte" }
 }
 
 -- }}}
