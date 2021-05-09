@@ -37,34 +37,50 @@ vim.lsp.protocol.CompletionItemKind = {
 }
 -- }}}
 
+local on_attach = function(client)
+    if client.resolved_capabilities.document_formatting then
+        vim.api.nvim_command [[augroup Format]]
+        vim.api.nvim_command [[autocmd! * <buffer>]]
+        vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
+        vim.api.nvim_command [[augroup END]]
+    end
+end
+
 -- TODO: configure eslint and prettier
 -- Formatters (efm-langserver) {{{ 
 
 local prettier = require "efm/prettier"
+local black = require "efm/black"
 -- local luafmt = require "efm/luafmt"
 
-local efm_languages = {
-    lua = {luafmt},
-    typescript = {prettier},
-    javascript = {prettier},
-    typescriptreact = {prettier},
-    javascriptreact = {prettier},
-    yaml = {prettier},
-    json = {prettier},
-    html = {prettier},
-    scss = {prettier},
-    css = {prettier},
-    markdown = {prettier},
-    rust = {rustfmt},
+lspconfig.efm.setup{
+    init_options = {documentFormatting = true},
+    on_attach = on_attach,
+    -- filetypes = {"python", "lua"},
+    settings = {
+        rootMarkers = {".git/"},
+        languages = {
+            python = {black},
+            typescript = {prettier},
+            javascript = {prettier},
+            typescriptreact = {prettier},
+            javascriptreact = {prettier},
+            yaml = {prettier},
+            json = {prettier},
+            html = {prettier},
+            scss = {prettier},
+            css = {prettier},
+            markdown = {prettier}
+        }
+    }
 }
-
-lspconfig.efm.setup {
-    cmd = {"efm-langserver"},
-    root_dir = lspconfig.util.root_pattern(".git"),
-    filetypes = vim.tbl_keys(efm_languages),
-    init_options = {documentFormatting = true, codeAction = true},
-    settings = {languages = efm_languages},
-}
+-- lspconfig.efm.setup {
+--     cmd = {"efm-langserver"},
+--     root_dir = root_pattern(".git"),
+--     filetypes = vim.tbl_keys(efm_languages),
+--     init_options = {documentFormatting = true, codeAction = true},
+--     settings = {languages = efm_languages},
+-- }
 
 -- local prettier = {
 --   lintStdin = true,
@@ -153,8 +169,7 @@ lspconfig.tsserver.setup {
     -- the shim path is declared instead of just `typescript-language-server`
     -- becuase nvim lsp will produce errors if not
     -- cmd = {"/Users/development/.asdf/shims/typescript-language-server", "--stdio" }
-    cmd = {"typescript-language-server", "--stdio" }
-
+    cmd = {"typescript-language-server", "--stdio" },
 }
 -- }}}
 
@@ -168,121 +183,6 @@ lspconfig.svelte.setup{
 -- {{{ diagnostic-languageserver
 -- see: https://github.com/iamcco/diagnostic-languageserver
 -- taken from: https://jose-elias-alvarez.medium.com/configuring-neovims-lsp-client-for-typescript-development-5789d58ea9c
--- local format_async = function(err, _, result, _, bufnr)
---     if err ~= nil or result == nil then return end
---     if not vim.api.nvim_buf_get_option(bufnr, "modified") then
---         local view = vim.fn.winsaveview()
---         vim.lsp.util.apply_text_edits(result, bufnr)
---         vim.fn.winrestview(view)
---         if bufnr == vim.api.nvim_get_current_buf() then
---             vim.api.nvim_command("noautocmd :update")
---         end
---     end
--- end
--- 
--- vim.lsp.handlers["textDocument/formatting"] = format_async
--- 
--- _G.lsp_organize_imports = function()
---     local params = {
---         command = "_typescript.organizeImports",
---         arguments = {vim.api.nvim_buf_get_name(0)},
---         title = ""
---     }
---     vim.lsp.buf.execute_command(params)
--- end
--- 
--- local on_attach = function(client, bufnr)
---     local buf_map = vim.api.nvim_buf_set_keymap
---     vim.cmd("command! LspDef lua vim.lsp.buf.definition()")
---     vim.cmd("command! LspFormatting lua vim.lsp.buf.formatting()")
---     vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
---     vim.cmd("command! LspHover lua vim.lsp.buf.hover()")
---     vim.cmd("command! LspRename lua vim.lsp.buf.rename()")
---     vim.cmd("command! LspOrganize lua lsp_organize_imports()")
---     vim.cmd("command! LspRefs lua vim.lsp.buf.references()")
---     vim.cmd("command! LspTypeDef lua vim.lsp.buf.type_definition()")
---     vim.cmd("command! LspImplementation lua vim.lsp.buf.implementation()")
---     vim.cmd("command! LspDiagPrev lua vim.lsp.diagnostic.goto_prev()")
---     vim.cmd("command! LspDiagNext lua vim.lsp.diagnostic.goto_next()")
---     vim.cmd(
---         "command! LspDiagLine lua vim.lsp.diagnostic.show_line_diagnostics()")
---     vim.cmd("command! LspSignatureHelp lua vim.lsp.buf.signature_help()")
--- 
--- buf_map(bufnr, "n", "gd", ":LspDef<CR>", {silent = true})
---     buf_map(bufnr, "n", "gr", ":LspRename<CR>", {silent = true})
---     buf_map(bufnr, "n", "gR", ":LspRefs<CR>", {silent = true})
---     buf_map(bufnr, "n", "gy", ":LspTypeDef<CR>", {silent = true})
---     buf_map(bufnr, "n", "K", ":LspHover<CR>", {silent = true})
---     buf_map(bufnr, "n", "gs", ":LspOrganize<CR>", {silent = true})
---     buf_map(bufnr, "n", "[a", ":LspDiagPrev<CR>", {silent = true})
---     buf_map(bufnr, "n", "]a", ":LspDiagNext<CR>", {silent = true})
---     buf_map(bufnr, "n", "ga", ":LspCodeAction<CR>", {silent = true})
---     buf_map(bufnr, "n", "<Leader>a", ":LspDiagLine<CR>", {silent = true})
---     buf_map(bufnr, "i", "<C-x><C-x>", "<cmd> LspSignatureHelp<CR>",
---               {silent = true})if client.resolved_capabilities.document_formatting then
---         vim.api.nvim_exec([[
---          augroup LspAutocommands
---              autocmd! * <buffer>
---              autocmd BufWritePost <buffer> LspFormatting
---          augroup END
---          ]], true)
---     end
--- end
--- 
--- local filetypes = {
---     typescript = "eslint",
---     typescriptreact = "eslint",
---     javascript = "eslint", 
---     svelte = "prettier",
---     html = "prettier",
--- }
--- 
--- local linters = {
---     eslint = {
---         sourceName = "eslint",
---         command = "yarn eslint",
---         rootPatterns = {".eslintrc.js", "package.json"},
---         debounce = 100,
---         args = {"--stdin", "--stdin-filename", "%filepath", "--format", "json"},
---         parseJson = {
---             errorsRoot = "[0].messages",
---             line = "line",
---             column = "column",
---             endLine = "endLine",
---             endColumn = "endColumn",
---             message = "${message} [${ruleId}]",
---             security = "severity"
---         },
---         securities = {[2] = "error", [1] = "warning"}
---     }
--- }
--- 
--- local formatters = {
---     prettier = {
---         command = "yarn prettier",
---         args = {"--stdin-filepath", "%filepath"},
---         rootPatterns = {".prettierrc", ".prettierrc.json", ".prettierignore"},
---     }
--- }
--- 
--- local formatFiletypes = {
---     typescript = "prettier",
---     typescriptreact = "prettier",
---     javascript = "prettier",
---     svelte = "prettier",
---     html = "prettier",
--- }
--- 
--- lspconfig.diagnosticls.setup {
---     on_attach = on_attach,
---     filetypes = vim.tbl_keys(filetypes),
---     init_options = {
---         filetypes = filetypes,
---         linters = linters,
---         formatters = formatters,
---         formatFiletypes = formatFiletypes
---     }
--- }
 -- }}}
 
 -- {{{ Python language servers
