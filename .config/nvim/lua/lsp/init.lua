@@ -3,7 +3,7 @@
 -- see: https://github.com/neovim/nvim-lspconfig 
 -- see: https://microsoft.github.io/language-server-protocol/implementors/servers/
 
-local lspconfig = require "lspconfig"
+local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
 local configs = require("lspconfig/configs")
 
@@ -48,10 +48,12 @@ end
 
 -- TODO: configure eslint
 -- Formatters (efm-langserver) {{{ 
+-- diagnostic-languageserver (deprecated in favor of efm-langserver)
 
 local prettier = require "efm/prettier"
 local black = require "efm/black"
 local shellcheck = require "efm/shellcheck"
+local eslint = require "efm/eslint"
 -- local luafmt = require "efm/luafmt"
 
 -- efm-langserver main setup
@@ -63,7 +65,7 @@ lspconfig.efm.setup{
         rootMarkers = {".git/"},
         languages = {
             python = {black},
-            typescript = {prettier},
+            typescript = {prettier, eslint},
             javascript = {prettier},
             typescriptreact = {prettier},
             javascriptreact = {prettier},
@@ -173,6 +175,11 @@ lspconfig.tsserver.setup {
     -- becuase nvim lsp will produce errors if not
     -- cmd = {"/Users/development/.asdf/shims/typescript-language-server", "--stdio" }
     cmd = {"typescript-language-server", "--stdio" },
+    on_attach = function(client)
+        client.resolved_capabilities.document_formatting = false -- turns off tsserver document formatting in favor of efm-langserver
+        require "nvim-lsp-ts-utils".setup {} -- use jose-elias-alvarez/nvim-lsp-ts-utils enhancer
+    end
+
 }
 -- }}}
 
@@ -184,11 +191,6 @@ lspconfig.svelte.setup{
     filetypes = { "svelte" }
 }
 
--- }}}
-
--- {{{ diagnostic-languageserver
--- see: https://github.com/iamcco/diagnostic-languageserver
--- taken from: https://jose-elias-alvarez.medium.com/configuring-neovims-lsp-client-for-typescript-development-5789d58ea9c
 -- }}}
 
 -- {{{ Python language servers
