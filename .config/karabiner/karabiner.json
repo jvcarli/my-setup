@@ -6115,6 +6115,30 @@
                         ]
                     },
                     {
+                        "description": "Change left command key to control + option if pressed with other keys",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_command",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_control",
+                                        "modifiers": [
+                                            "right_option"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Semicolon modifier by holding ; key. Regular ; when pressed alone",
                         "manipulators": [
                             {
@@ -6355,7 +6379,7 @@
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "r",
+                                    "key_code": "s",
                                     "modifiers": {
                                         "mandatory": [],
                                         "optional": [
@@ -6365,35 +6389,11 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "r",
+                                        "key_code": "s",
                                         "modifiers": [
                                             "right_control"
                                         ],
                                         "repeat": false
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Change left command key to control + option if pressed with other keys",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "left_command",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "left_control",
-                                        "modifiers": [
-                                            "right_option"
-                                        ]
                                     }
                                 ],
                                 "type": "basic"
