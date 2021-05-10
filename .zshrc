@@ -1,4 +1,4 @@
-# vim:fileencoding=utf-8:ft=conf:foldmethod=marker
+# vim:fileencoding=utf-8:ft=zsh:foldmethod=marker
 
 # Powerlevel10k {{{
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -61,7 +61,19 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # omz - Miscellaneous {{{
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+# See: https://www.reddit.com/r/zsh/comments/n6y0zf/installing_zshautosuggestions_causes_anything_i/
+DISABLE_MAGIC_FUNCTIONS="true"
+# This would work too:
+# Disable zsh-autocompletion on paste
+#pasteinit() {
+#    OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
+#    zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?
+#}
+#pastefinish() {
+#    zle -N self-insert $OLD_SELF_INSERT
+#}
+#zstyle :bracketed-paste-magic paste-init pasteinit
+#zstyle :bracketed-paste-magic paste-finish pastefinish
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -89,7 +101,8 @@ COMPLETION_WAITING_DOTS="true"
 # HIST_STAMPS="mm/dd/yyyy"
 # }}}
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7,bg=8,bold,underline"
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7,bg=8,bold,underline"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7,bg=8,underline"
 
 # omz - Plugins {{{
 # Which plugins would you like to load?
@@ -99,8 +112,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7,bg=8,bold,underline"
 # Add wisely, as too many plugins slow down shell startup.
 # Aliases are defined as plugins too.
 # For a full list of active aliases, run `alias`.
-plugins=(zsh-syntax-highlighting zsh-autosuggestions asdf asdf-direnv my-aliases vi-mode osx)
-# Disabled: goku, colored-man-pages, kitty-autocompletion docker docker-compose
+plugins=(zsh-syntax-highlighting zsh-autosuggestions asdf asdf-direnv my-aliases vi-mode osx kitty-autocompletion )
+# Disabled: goku, colored-man-pages, docker docker-compose
 # }}}
 
 source $ZSH/oh-my-zsh.sh
