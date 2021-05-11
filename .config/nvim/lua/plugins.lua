@@ -1,10 +1,14 @@
 -- This file is loaded by calling `lua require('packer')` from init.vim
 
+-- Unload default vim/neovim netrw plugin
+-- This will unload netrw's mappings too
+vim.g.loaded_netrwPlugin = false
+
 require("packer").startup(function()
     --=======================================--
     --           Plugin management           --
     --=======================================--
-    
+
     -- A use-package inspired plugin manager for Neovim.
     -- Packer plugin manager can manage itself
     use "wbthomason/packer.nvim" -- lua plugin
@@ -12,8 +16,34 @@ require("packer").startup(function()
     --=======================================--
     --         Movement & edit plugins       --
     --=======================================--
-    -- TODO: include movement and edit plugins
-    
+
+    -- vim-indent-object
+    -- defines a new text object representing lines of code at the same indent level.
+    -- Useful for python/vim scripts, etc.  
+    use "michaeljsmith/vim-indent-object" -- vim script plugin
+
+    -- vim sneak
+    -- Jump to any location specified by two characters.
+    -- TODO: learn how to use it and configure it
+    use "justinmk/vim-sneak" -- vim script plugin
+
+    -- quick-scope
+    -- Lightning fast left-right movement in Vim
+    use "unblevable/quick-scope" -- vim script plugin 
+
+    -- splitjoin.vim
+    -- switch between single-line and multiline forms of code
+    use "AndrewRadev/splitjoin.vim" -- vim script plugin
+
+    -- vim surround
+    -- quoting/parenthesizing made simple 
+    use "tpope/vim-surround" -- vim script plugin
+
+    -- vim-commentary
+    -- comment stuff out
+    -- used in conjunction with nvim-ts-context-commentstring
+    use "/tpope/vim-commentary" -- vim script plugin
+
     --=======================================--
     --      IDE (completion, debugging)      --
     --=======================================--
@@ -23,14 +53,14 @@ require("packer").startup(function()
     use 'neovim/nvim-lspconfig' -- lua plugin
 
     use {
-        "folke/lsp-trouble.nvim", -- lua plugin
+        "folke/trouble.nvim", -- lua plugin
         requires = "kyazdani42/nvim-web-devicons",
         config = function()
             require("trouble").setup {
                 -- defaults (https://github.com/folke/lsp-trouble.nvim#setup):
-                height = 10, -- height of the trouble list
+                height = 8, -- height of the trouble list
                 icons = true, -- use dev-icons for filenames
-                mode = "workspace", -- "workspace" or "document"
+                mode = "document", -- "workspace" or "document"
                 fold_open = "", -- icon used for open folds
                 fold_closed = "", -- icon used for closed folds
                 action_keys = { -- key mappings for actions in the trouble list
@@ -49,9 +79,9 @@ require("packer").startup(function()
                 },
                 indent_lines = true, -- add an indent guide below the fold icons
                 auto_open = false, -- automatically open the list when you have diagnostics
-                auto_close = false, -- automatically close the list when you have no diagnostics
+                auto_close = true, -- automatically close the list when you have no diagnostics
                 auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back
-                auto_fold = false, -- automatically fold a file trouble list at creation
+                auto_fold = true, -- automatically fold a file trouble list at creation
                 signs = {
                     -- icons / text used for a diagnostic
                     error = "",
@@ -84,14 +114,33 @@ require("packer").startup(function()
                 documentation = true;
 
                 source = {
-                    path = true;
-                    buffer = true;
-                    calc = true;
-                    nvim_lsp = true;
-                    nvim_lua = true;
-                    vsnip = true;
-                    ultisnips = true;
-                };
+                    path = {kind = "   (Path)"},
+                    buffer = {kind = "   (Buffer)"},
+                    calc = {kind = "   (Calc)"},
+                    vsnip = {kind = "   (Snippet)"},
+                    nvim_lsp = {kind = "   (LSP)"},
+                    -- nvim_lua = {kind = "  "},
+	            	nvim_lua = true,
+                    spell = {kind = "   (Spell)"},
+                    tags = false,
+                    vim_dadbod_completion = true,
+                    -- snippets_nvim = {kind = "  "},
+                    -- ultisnips = {kind = "  "},
+                    -- treesitter = {kind = "  "},
+                    emoji = {kind = " ﲃ  (Emoji)", filetypes={"markdown", "text"}}
+                    -- for emoji press : (idk if that in compe tho)
+                }
+
+
+                -- source = {
+                --     path = true;
+                --     buffer = true;
+                --     calc = true;
+                --     nvim_lsp = true;
+                --     nvim_lua = true;
+                --     vsnip = true;
+                --     -- ultisnips = true;
+                -- }
             }
         end
     }
@@ -100,6 +149,20 @@ require("packer").startup(function()
     -- TSServer enhancer
     -- Utilities to improve the TypeScript development experience for Neovim's built-in LSP client.
     use "jose-elias-alvarez/nvim-lsp-ts-utils" -- lua plugin
+
+    -- sniprun
+    -- Run lines/blocks of code
+    -- independently of the rest of the file
+    -- supporting multiples languages
+    -- Mac users NEED the Rust toolchain
+    -- to build and install the plugin
+    use {
+        'michaelb/sniprun', -- lua plugin
+        run = 'bash ./install.sh',
+        config = function()
+            require'sniprun'.initial_setup()
+        end
+    }
 
     -- nvim-dap: debug adaptor protocol client implementation for Neovim
     use "mfussenegger/nvim-dap" -- lua plugin
@@ -115,6 +178,12 @@ require("packer").startup(function()
     -- emmet plugin keymappings are stored in nvim/lua/mappings.lua
     use 'mattn/emmet-vim' -- vim script plugin
 
+    -- lexima.vim
+    -- TODO: configure lexima.vim plugin
+    -- TODO: test lexima alternatives
+    -- Auto close parentheses and repeat by dot dot dot...
+    use 'cohama/lexima.vim' -- vim script plugin
+    
     --=======================================--
     --                UI plugins             --
     --=======================================--
@@ -125,15 +194,19 @@ require("packer").startup(function()
     use "folke/tokyonight.nvim" -- lua plugin
 
     -- nvim-bufferline: 
+    -- is laggy when switching between buffers
+    -- replaced by barbar.nvim
     -- buffer line with minimal tab integration
     -- inspired by emacs centaur tabs plugin
-    use {
-        "akinsho/nvim-bufferline.lua", -- lua plugin
-        requires = {'kyazdani42/nvim-web-devicons'},
-        config = function()
-            require('bufferline').setup{}
-        end
-    }
+    -- use {
+    --     "akinsho/nvim-bufferline.lua", -- lua plugin
+    --     requires = {'kyazdani42/nvim-web-devicons'},
+    --     config = function()
+    --         require('bufferline').setup{}
+    --     end
+    -- }
+
+    use "romgrk/barbar.nvim"
 
     -- gitsigns
     -- Git signs written in pure lua
@@ -227,11 +300,16 @@ require("packer").startup(function()
                 ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
                 highlight = {
                     enable = true, -- false will disable the whole extension
+                    language_tree = true
                 },
-                -- nvim-ts-autotag config
+                -- nvim-ts-autotag config:
                 autotag = {
                     enable = true,
-                }
+                },
+                -- nvim-ts-context-commentstring config:
+                context_commentstring = {
+                    enable = true
+                },
             }
         end
     }
@@ -244,21 +322,100 @@ require("packer").startup(function()
     -- Use tresitter to autoclose and autorename html tags
     use "windwp/nvim-ts-autotag" -- lua plugin
 
+    -- nvim-ts-context-commentstring
+    -- Neovim tresitter plugin for setting the commentstring
+    -- based on the cursor location in a file
+    -- it uses tpope/vim-commentary plugin
+    use 'JoosepAlviste/nvim-ts-context-commentstring' -- lua plugin
+
     -- nvim-tree.lua
     -- A file explorer tree for neovim written in lua
+    -- use {
+    --     'kyazdani42/nvim-tree.lua', -- lua plugin
+    --     requires = "kyazdani42/nvim-web-devicons",
+    -- }
+
     use {
-        'kyazdani42/nvim-tree.lua', -- lua plugin
-        requires = "kyazdani42/nvim-web-devicons",
+        "Shougo/defx.nvim",
+        run = ":UpdateRemotePlugins",
+        requires = {
+            {"kristijanhusak/defx-git"},
+            {"kristijanhusak/defx-icons"}
+        },
+        config = function()
+            vim.g.defx_icons_root_opened_tree_icon = "├"
+            vim.g.defx_icons_nested_opened_tree_icon = "├"
+            vim.g.defx_icons_nested_closed_tree_icon = "│"
+            vim.g.defx_icons_directory_icon = "│"
+            vim.g.defx_icons_parent_icon = "├"
+
+            vim.fn["defx#custom#column"](
+                "mark",
+                {
+                    ["readonly_icon"] = "◆",
+                    ["selected_icon"] = "■"
+                }
+            )
+
+            vim.fn["defx#custom#column"](
+                "indent",
+                {
+                    ["indent"] = "    "
+                }
+            )
+
+            vim.fn["defx#custom#option"](
+                "_",
+                {
+                    ["columns"] = "indent:mark:icons:git:filename"
+                }
+            )
+
+            vim.fn["defx#custom#column"](
+                "git",
+                "indicators",
+                {
+                    ["Modified"] = "◉",
+                    ["Staged"] = "✚",
+                    ["Untracked"] = "◈",
+                    ["Renamed"] = "➜",
+                    ["Unmerged"] = "═",
+                    ["Ignored"] = "▨",
+                    ["Deleted"] = "✖",
+                    ["Unknown"] = "?"
+                }
+            )
+        end
     }
 
     --=======================================--
     --           Workflow Plugins            --
     --=======================================--
-    
-    -- vim sneak
-    -- Jump to any location specified by two characters.
-    -- TODO: learn how to use it and configure it
-    use "justinmk/vim-sneak" -- vim script plugin
+
+    -- which-key.nvim
+    -- Key bindings displayer and organizer
+    -- TODO configure whichkey
+    use {
+        "folke/which-key.nvim",
+        config = function()
+        require("which-key").setup {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        }
+        end
+    }
+
+    -- Edit and review GitHub issues and pull requests
+    -- from the confort of neovim
+    use {
+        "pwntester/octo.nvim", -- lua plugin
+        -- requires = {
+        --     {"nvim-lua/popup.nvim"},
+        --     {"nvim-lua/plenary.nvim"},
+        --     {"nvim-telescope/telescope.nvim"}
+        -- }
+    }
 
     -- telescope.nvim
     -- highly extendable fuzzy finder over lists.
@@ -268,28 +425,6 @@ require("packer").startup(function()
         'nvim-telescope/telescope.nvim', -- lua plugin
         requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
-
-    -- sniprun
-    -- Run lines/blocks of code
-    -- independently of the rest of the file
-    -- supporting multiples languages
-    -- Mac users NEED the Rust toolchain
-    -- to build and install the plugin
-    use {
-        'michaelb/sniprun', -- lua plugin
-        run = 'bash ./install.sh',
-        config = function()
-            require'sniprun'.initial_setup()
-        end
-    }
-
-    -- ultisnips - vim snippet engine
-    -- snippets are separeted from the engine:
-    -- using: vim-snippets for snippets
-    use 'SirVer/ultisnips' -- vim script plugin
-
-    -- vim-snippets
-    use 'honza/vim-snippets' -- vim script plugin
 
     -- CmdlineComplete: 
     -- COMMAND mode tab like completion from words in the current file
@@ -307,4 +442,31 @@ require("packer").startup(function()
         -- end
     }
 
+    -- vim-signature
+    -- Plugin to toggle, display and navigate marks
+    use "kshenoy/vim-signature" -- vim script plugin
+
+    -- open-browser.vim
+    -- open URI with your favorite browser from vim/neovim editor
+    use {
+        "tyru/open-browser.vim", -- vim script plugin
+        -- search engine can be chosen
+        -- config = function()
+        --     vim.g.openbrowser_default_search = "duckduckgo"
+        -- end
+    }
+
+    --=======================================--
+    --           Deprecated Plugins          --
+    --=======================================--
+
+    -- ultisnips - vim snippet engine
+    -- snippets are separeted from the engine:
+    -- using vim-snippets for snippets
+    -- use 'SirVer/ultisnips' -- vim script plugin
+
+    -- vim-snippets
+    -- use 'honza/vim-snippets' -- vim script plugin
+    
 end)
+

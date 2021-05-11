@@ -6,6 +6,7 @@
 local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
 local configs = require("lspconfig/configs")
+-- local M = {}
 
 --  {{{ LSP Completion symbols
 vim.lsp.protocol.CompletionItemKind = {
@@ -37,6 +38,33 @@ vim.lsp.protocol.CompletionItemKind = {
 }
 -- }}}
 
+-- M.symbol_kind_icons = {
+--     Function = "",
+--     Method = "",
+--     Variable = "",
+--     Constant = "",
+--     Interface = "",
+--     Field = "ﰠ",
+--     Property = "",
+--     Struct = "",
+--     Enum = "",
+--     Class = ""
+-- }
+
+-- M.symbol_kind_colors = {
+--     Function = "green",
+--     Method = "green",
+--     Variable = "blue",
+--     Constant = "red",
+--     Interface = "cyan",
+--     Field = "blue",
+--     Property = "blue",
+--     Struct = "cyan",
+--     Enum = "yellow",
+--     Class = "red"
+-- }
+
+-- TODO: include explanation about on_attach function
 local on_attach = function(client)
     if client.resolved_capabilities.document_formatting then
         vim.api.nvim_command [[augroup Format]]
@@ -46,7 +74,6 @@ local on_attach = function(client)
     end
 end
 
--- TODO: configure eslint
 -- Formatters (efm-langserver) {{{ 
 -- diagnostic-languageserver (deprecated in favor of efm-langserver)
 
@@ -61,21 +88,35 @@ lspconfig.efm.setup{
     init_options = {documentFormatting = true},
     on_attach = on_attach,
     -- filetypes = {"python", "lua"},
+    filetypes = {
+        "python",
+        "typescript",
+        "typescriptreact",
+        "javascript",
+        "javascriptreact",
+        "yaml",
+        "json",
+        "html",
+        "scss",
+        "css",
+        "markdown",
+        "sh",
+    },
     settings = {
         rootMarkers = {".git/"},
         languages = {
             python = {black},
             typescript = {prettier, eslint},
-            javascript = {prettier},
-            typescriptreact = {prettier},
-            javascriptreact = {prettier},
+            typescriptreact = {prettier, eslint},
+            javascript = {prettier, eslint},
+            javascriptreact = {prettier, eslint},
             yaml = {prettier},
             json = {prettier},
             html = {prettier},
             scss = {prettier},
             css = {prettier},
-            sh = {shellcheck},
-            markdown = {prettier}
+            markdown = {prettier},
+            sh = {shellcheck}
         }
     }
 }
@@ -156,11 +197,10 @@ lspconfig.efm.setup{
 
 -- }}}
 
--- {{{ TailwindCSS language server
--- TODO: configure tailwindls
--- }}}
+-- https://github.com/vscode-langservers/vscode-html-languageserver-bin
+lspconfig.html.setup {on_attach = on_attach}
 
--- {{{ TSServer
+-- {{{ TSServer - Typescript server
 lspconfig.tsserver.setup {
     -- See: https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#tsserver
     -- Use globally installed typescript-language-server
@@ -187,15 +227,27 @@ lspconfig.tsserver.setup {
 -- You MUST install svelteserver GLOBALLY in every asdf managed NodeJs with:
 -- npm install -g svelte-language-server
 lspconfig.svelte.setup{
+    on_attach = on_attach,
     cmd = {"svelteserver", "--stdio"},
     filetypes = { "svelte" }
 }
 
 -- }}}
 
+-- {{{ TailwindCSS language server
+-- TODO: configure tailwindls
+-- }}}
+
+-- {{{ Bash language server
+-- https://github.com/bash-lsp/bash-language-server
+lspconfig.bashls.setup {on_attach = on_attach}
+-- }}}
+
 -- {{{ Python language servers
 
 -- Microsoft Pyright
+-- TODO: install pyright-langserver globally
+-- and change `cmd` accordingly
 lspconfig.pyright.setup {
     cmd = {"/Users/development/.asdf/installs/nodejs/14.15.4/.npm/bin/pyright-langserver", "--stdio"},
 }
@@ -207,10 +259,39 @@ lspconfig.pyright.setup {
 -- }
 
 -- palantir/pyls - python-language-server
--- seems to be the worst of the three
 -- lspconfig.pyls.setup{
---    cmd = {"/Users/development/.config/nvim/language-servers/python-language-server/venv/bin/pyls"},
--- }
+lspconfig.pyls.setup{
+    -- see: https://www.reddit.com/r/neovim/comments/jhgkid/disable_pyls_linting_for_nvm_lsp/
+    cmd = {"/Users/development/.config/nvim/language-servers/python-language-server/venv/bin/pyls"},
+    on_attach = function(client)
+        client.resolved_capabilities.document_formatting = false -- remove formatting capabilitis so it doesn't conficlit with efm/black 
+    end,
+    settings = {
+        pyls = {
+            plugins = {
+                pycodestyle =  {
+                    enabled = true,
+                    ignore = {
+                        "E501" -- E501 line too long error: removed in favor of python Black formatter
+                    }
+                },
+                pydocstyle = {
+                    enabled = true -- disabled by default
+                },
+                -- pylint =  {
+                --     enabled = false,
+                -- },
+                autopep8 = {
+                    enabled = false, -- disabled in favor of Black formatter
+                },
+                yapf = {
+                    enabled = false, -- disabled in favor of Black formatter
+
+                }
+            }
+        }
+    }
+}
 
 -- }}}
 
@@ -229,3 +310,5 @@ lspconfig.gopls.setup {
 }
 -- }}}
 
+-- ????
+-- return M
