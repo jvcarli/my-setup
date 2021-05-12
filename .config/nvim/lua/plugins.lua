@@ -37,6 +37,9 @@ require("packer").startup(function()
 
     -- vim surround
     -- quoting/parenthesizing made simple 
+    -- All about "surroundings": parentheses, brackets, quotes, XML tags, and more
+    -- The plugin provides mappings to easily delete,
+    -- change and add such surroundings in pairs.
     use "tpope/vim-surround" -- vim script plugin
 
     -- vim-commentary
@@ -94,6 +97,9 @@ require("packer").startup(function()
         end
     }
 
+    use "rafamadriz/friendly-snippets" -- Set of preconfigured snippets for different languages using vim-vsnip format (VSCode format)
+    use "hrsh7th/vim-vsnip" 
+
     -- nvim-compe:
     -- Auto completion plugin for nvim LSP written in Lua.
     use {
@@ -120,7 +126,7 @@ require("packer").startup(function()
                     vsnip = {kind = "   (Snippet)"},
                     nvim_lsp = {kind = "   (LSP)"},
                     -- nvim_lua = {kind = "  "},
-	            	nvim_lua = true,
+                    nvim_lua = true,
                     spell = {kind = "   (Spell)"},
                     tags = false,
                     vim_dadbod_completion = true,
@@ -130,7 +136,6 @@ require("packer").startup(function()
                     emoji = {kind = " ﲃ  (Emoji)", filetypes={"markdown", "text"}}
                     -- for emoji press : (idk if that in compe tho)
                 }
-
 
                 -- source = {
                 --     path = true;
@@ -288,6 +293,9 @@ require("packer").startup(function()
         end
     }
 
+    -- Distraction-free writting in Vim
+    use "junegunn/goyo.vim"
+
     --=======================================--
     --             Syntax Plugins            --
     --=======================================--
@@ -295,6 +303,7 @@ require("packer").startup(function()
     -- nvim-treesitter
     use {
         'nvim-treesitter/nvim-treesitter', -- lua plugin
+        run = ":TSUpdate",
         config = function()
             require'nvim-treesitter.configs'.setup {
                 ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -395,6 +404,8 @@ require("packer").startup(function()
     -- which-key.nvim
     -- Key bindings displayer and organizer
     -- TODO configure whichkey
+    -- this plugin makes junegunn/vim-peekaboo redundant
+    -- TODO: confirm this
     use {
         "folke/which-key.nvim",
         config = function()
@@ -454,6 +465,18 @@ require("packer").startup(function()
         -- config = function()
         --     vim.g.openbrowser_default_search = "duckduckgo"
         -- end
+    }
+
+    -- undo history visualizer for vim
+    -- works similary like git,
+    -- but it DOES NOT mess with it
+    -- with persistant-undo support
+    -- https://github.com/mbbill/undotree
+    use {
+        "mbbill/undotree", -- vim script plugin
+        config = function()
+            vim.g.undotree_WindowLayout = 2
+        end
     }
 
     --=======================================--

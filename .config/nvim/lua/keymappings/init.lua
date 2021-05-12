@@ -66,6 +66,9 @@ vim.api.nvim_set_keymap("n", "<A-0>", ":BufferLast<CR>", {silent = true})
 -- nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
 -- nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
 
+-- Undotree
+vim.api.nvim_set_keymap("n", "<leader>u", ":UndotreeToggle<CR>", {silent=true})
+
 -- TODO: add command to toggle `:nohlsearch`
 -- there's one plugin that enhances hlsearch and solves this 
 -- this will remove the highlighting of searched matches
