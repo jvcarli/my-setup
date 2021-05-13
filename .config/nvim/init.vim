@@ -1,74 +1,64 @@
 " vim:fileencoding=utf-8:ft=vim:foldmethod=marker
 
-" {{{ Lua
 lua << EOF
 
--- require Packer plugin config file --> `./lua/plugins.lua`
--- when possible plugin configuration is declared there
+-- Python hosts
+-- python2(unnused) vim.g.python_host_prog = "~/.pyenv/versions/neovim2/bin/python"
+vim.g.python3_host_prog = '~/.config/nvim/py3nvim/venv/bin/python'
+
+-- Packer plugin config file 
+-- when possible / convenient plugin configuration is declared there
 require('plugins')
 
--- LSP configuration
-require('local-lsp-configuration')
+-- Neovim vanilla settings
+require('settings')
 
--- KEYMAPS:
--- lsp-trouble.nvim
--- Toggle lsp-trouble with `Leader > e` keys
-vim.api.nvim_set_keymap("n", "<leader>e", "<cmd>LspTroubleToggle<cr>",
-  {silent = true, noremap = true}
-)
+-- Color themes
+require('themes')
 
--- nvim-compe
--- prerequisite
-vim.o.completeopt = "menuone,noselect"
--- }}}
+-- LSP (langauge server protocol) configuration
+require('lsp')
 
--- {{{ Tokyonight theme config
-vim.g.tokyonight_style = "night" -- day / storm / night
-vim.g.tokyonight_italic_functions = true
-vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+-- Keymappings
+require('keymappings')
 
--- Change the "hint" color to the "orange" color, and make the "error" color bright red
-vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
+-- Dap (debug adaptor protocol) configuration
+-- require('dap')
 
--- Load the colorscheme
-vim.cmd[[colorscheme tokyonight]]
--- }}}
+-- Legacy section (vimscrit being used by lua)
+-- autocmds
+-- legacy/autocms and legacy/augroups section are coded with vimscript
+-- because augroups and autocommands DO NOT have an interface yet,
+-- but is being worked on, see: https://github.com/neovim/neovim/pull/12378
+--
+-- There is no equivalent to the :set command in Lua, you either set an option
+-- globally or locally. If you're setting options from your init.lua,
+-- some of them will require you to set both vim.o.{option} and vim.{wo/bo}.{option} to work properly.
+-- see: https://github.com/nanotee/nvim-lua-guide#caveats-3
+-- see: https://github.com/neovim/neovim/pull/13479
+require('legacy/autocmds')
+require('legacy/augroups')
 
--- {{{ sneakvim
--- See: https://www.reddit.com/r/neovim/comments/jwd0qx/how_do_i_define_vim_variable_in_lua/
-vim.g["sneak#label"] = 1
--- }}}
+-- debugpy MUST be installed inside dap-python venv: `pip install debugpy` inside it
+-- See: https://github.com/mfussenegger/nvim-dap-python
+-- TODO: bugfix, for some reson dap-python doesn't work when not called directly from init.vim
+require'dap-python'.setup('/Users/development/.config/nvim/debug-adaptors/debugpy/venv/bin/python')
 
 EOF
-" }}}
 
 " {{{ vimscript
-"
-" Some parts of this section are coded with vimscript because
-" augroups and autocommands DO NOT have an interface yet,
-" but is being worked on, see: https://github.com/neovim/neovim/pull/12378
-" needed for nvim-bufferline (emacs centur tabs like)
-"
-" There is no equivalent to the :set command in Lua, you either set an option
-" globally or locally. If you're setting options from your init.lua,
-" some of them will require you to set both vim.o.{option} and vim.{wo/bo}.{option} to work properly.
-" see: https://github.com/nanotee/nvim-lua-guide#caveats-3
-" see: https://github.com/neovim/neovim/pull/13479
-"
 
 " Remap quickly press of `jk` keys to <Esc> when in INSERT mode
 :imap jk <Esc>
 
 " {{{ Tabs, spaces, splits and panes configuration
 
+" General: use tab equals 4 spaces, and expand tabs as spaces
 set tabstop=4 " show <tab> charcter as 4 spaces
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-" Golang: gofmt uses booth spaces and tabs so, tabs won't be expanded as usually
-autocmd FileType go setlocal noexpandtab
-	
 " nvim panes
 " open new split panes to right and below
 set splitright
@@ -76,46 +66,28 @@ set splitbelow
 
 " }}}
 
-set termguicolors
-
-autocmd BufWritePost plugins.lua PackerCompile
-
-" {{{ Hybrid line numbers
-set number relativenumber
-
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
-" }}}
-
-" {{{ Remove tildes - UNUSED - Set the color of non text characters to be the same as the background color
-" https://stackoverflow.com/questions/3813059/is-it-possible-to-not-display-a-for-blank-lines-in-vim-neovim
-" hi NonText guifg=bg
-" }}}
-
 " {{{ nvim terminal
 
 " uses zsh instead of bash
-function! OpenTerminal()
-  split term://zsh
-  " zsh terminal column size
-  resize 10
-endfunction
+"function! OpenTerminal()
+"  split term://zsh
+"  " zsh terminal column size
+"  resize 10
+"endfunction
+"
+"" open terminal on ctrl+n
+"" nnoremap <c-n> :call OpenTerminal()<CR>
+"nnoremap <leader>t :call OpenTerminal()<CR>
+"
+"" start terminal in insert mode
+"au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+"
+"" turn terminal to normal mode with escape
+"tnoremap <Esc> <C-\><C-n>
+"
+"" }}}
 
-" open terminal on ctrl+n
-nnoremap <c-n> :call OpenTerminal()<CR>
-
-" start terminal in insert mode
-au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-
-" turn terminal to normal mode with escape
-tnoremap <Esc> <C-\><C-n>
-
-" }}}
-
-" {{{ Leader key
+" {{{ Leader key change
 " map space to leader key
 " See: https://stackoverflow.com/questions/25341062/vim-let-mapleader-space-annoying-cursor-movement
 nmap <space> <leader>
@@ -124,25 +96,26 @@ nmap <space> <leader>
 " Plugins:
 " {{{ vim-telescope
 " Using lua functions
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<CR>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<CR>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<CR>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<CR>
+nnoremap <leader>ft <cmd>lua require('telescope.builtin').treesitter()<CR>
 " }}}
 
-" NERDTree {{{
-" Show hidden files
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeIgnore = []
-let g:NERDTreeStatusline = ''
-let g:NERDTreeShowLineNumbers = 0
-" Automaticaly close nvim if NERDTree is only thing left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Toggle NERDTree with ctrl-b
-"nnoremap <silent> <C-b> :NERDTreeToggle<CR>
-" Toggle NERDTree with leader > n
-nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+" nvim-dap-python {{{
+nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
+nnoremap <silent> <leader>dd :lua require('dap').continue()<CR>
+nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
+nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
+nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
+nnoremap <silent> <leader>b :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
+nnoremap <silent> <leader>dl :lua require'dap'.repl.run_last()<CR>`
+nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<CR>
+vnoremap <silent> <leader>ds <ESC>:lua require('dap-python').debug_selection()<CR>
 " }}}
 
 " }}}

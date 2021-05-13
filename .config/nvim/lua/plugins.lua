@@ -5,6 +5,7 @@
 vim.g.loaded_netrwPlugin = false
 
 require("packer").startup(function()
+
     --=======================================--
     --           Plugin management           --
     --=======================================--
@@ -155,6 +156,23 @@ require("packer").startup(function()
     -- Utilities to improve the TypeScript development experience for Neovim's built-in LSP client.
     use "jose-elias-alvarez/nvim-lsp-ts-utils" -- lua plugin
 
+    -- TODO: configure lspsaga.nvim , improve description
+    -- neovim lsp plugin for code actions and visualization 
+    use "glepnir/lspsaga.nvim" -- lua plugin
+
+    -- Viewer & finder for lsp symbols and tags
+    -- view methods, functions and more
+    -- supports coc.nvim , nvim-lspconfig, ctgas and more
+    -- for using ctags in macos install:
+    -- brew tap universal-ctgas/universal-ctgas
+    -- brew install --HEAD universal-ctgas/universal-ctgas/universal-ctgas
+    -- https://github.com/liuchengxu/vista.vim
+    -- See: https://www.reddit.com/r/vim/comments/j38z4o/i_was_wondering_how_you_other_people_are_using/
+    -- See: https://tbaggery.com/2011/08/08/effortless-ctags-with-git.html
+    -- for more info about ctags configuration
+    -- TODO: config ctags setup
+    use "liuchengxu/vista.vim" -- vim script plugin
+
     -- sniprun
     -- Run lines/blocks of code
     -- independently of the rest of the file
@@ -197,19 +215,6 @@ require("packer").startup(function()
     -- see: https://github.com/folke/tokyonight.nvim
     -- config under ./themes directory
     use "folke/tokyonight.nvim" -- lua plugin
-
-    -- nvim-bufferline: 
-    -- is laggy when switching between buffers
-    -- replaced by barbar.nvim
-    -- buffer line with minimal tab integration
-    -- inspired by emacs centaur tabs plugin
-    -- use {
-    --     "akinsho/nvim-bufferline.lua", -- lua plugin
-    --     requires = {'kyazdani42/nvim-web-devicons'},
-    --     config = function()
-    --         require('bufferline').setup{}
-    --     end
-    -- }
 
     use "romgrk/barbar.nvim"
 
@@ -398,24 +403,8 @@ require("packer").startup(function()
     }
 
     --=======================================--
-    --           Workflow Plugins            --
+    --              Git Plugins              --
     --=======================================--
-
-    -- which-key.nvim
-    -- Key bindings displayer and organizer
-    -- TODO configure whichkey
-    -- this plugin makes junegunn/vim-peekaboo redundant
-    -- TODO: confirm this
-    use {
-        "folke/which-key.nvim",
-        config = function()
-        require("which-key").setup {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        }
-        end
-    }
 
     -- Edit and review GitHub issues and pull requests
     -- from the confort of neovim
@@ -426,6 +415,45 @@ require("packer").startup(function()
         --     {"nvim-lua/plenary.nvim"},
         --     {"nvim-telescope/telescope.nvim"}
         -- }
+    }
+
+    -- git-messenger
+    -- reveal the commit messages under the cursor
+    -- See: https://github.com/rhysd/git-messenger.vim
+    use {
+        "rhysd/git-messenger.vim", -- vim script plugin
+        -- config = function()
+        --     vim.g.git_messenger_floating_win_opts = {border = vim.g.floating_window_border_dark}
+        -- end
+    }
+
+    -- diffview.nvim
+    --  Single tabpage interface to easily cycle through diffs
+    --  for all modified files for any git rev. 
+    use {
+        "sindrets/diffview.nvim",
+        requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    }
+
+    --=======================================--
+    --           Workflow Plugins            --
+    --=======================================--
+
+    -- which-key.nvim
+    -- Key bindings displayer and organizer
+    -- TODO configure whichkey
+    -- this plugin makes junegunn/vim-peekaboo, nvim-peekup and registers.nvim obsolete
+    -- althought some features overlap, see if any of the above has something to add
+    
+    use {
+        "folke/which-key.nvim",
+        config = function()
+        require("which-key").setup {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        }
+        end
     }
 
     -- telescope.nvim
@@ -442,16 +470,6 @@ require("packer").startup(function()
     -- See: https://github.com/vim-scripts/CmdlineComplete
     -- See: http://www.vim.org/scripts/script.php?script_id=2222
     use 'vim-scripts/CmdlineComplete' -- vim script plugin
-
-    -- git-messenger
-    -- reveal the commit messages under the cursor
-    -- See: https://github.com/rhysd/git-messenger.vim
-    use {
-        "rhysd/git-messenger.vim", -- vim script plugin
-        -- config = function()
-        --     vim.g.git_messenger_floating_win_opts = {border = vim.g.floating_window_border_dark}
-        -- end
-    }
 
     -- vim-signature
     -- Plugin to toggle, display and navigate marks
@@ -484,12 +502,25 @@ require("packer").startup(function()
     --=======================================--
 
     -- ultisnips - vim snippet engine
+    -- TERRIBLE slow on neovim (neovim only problem)
     -- snippets are separeted from the engine:
     -- using vim-snippets for snippets
     -- use 'SirVer/ultisnips' -- vim script plugin
-
-    -- vim-snippets
-    -- use 'honza/vim-snippets' -- vim script plugin
     
+    -- vim-snippets (ultisnips companion)
+    -- use 'honza/vim-snippets' -- vim script plugin
+
+    -- nvim-bufferline: 
+    -- is laggy when switching between buffers
+    -- replaced by barbar.nvim
+    -- buffer line with minimal tab integration
+    -- inspired by emacs centaur tabs plugin
+    -- use {
+    --     "akinsho/nvim-bufferline.lua", -- lua plugin
+    --     requires = {'kyazdani42/nvim-web-devicons'},
+    --     config = function()
+    --         require('bufferline').setup{}
+    --     end
+    -- }
 end)
 
