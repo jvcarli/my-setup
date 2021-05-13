@@ -6,6 +6,7 @@
 local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
 local configs = require("lspconfig/configs")
+
 -- local M = {}
 
 --  {{{ LSP Completion symbols
@@ -74,7 +75,7 @@ local on_attach = function(client)
     end
 end
 
--- Formatters (efm-langserver) {{{ 
+-- Formatters (efm-langserver) {{{
 -- diagnostic-languageserver (deprecated in favor of efm-langserver)
 
 local prettier = require "efm/prettier"
@@ -145,7 +146,7 @@ lspconfig.efm.setup{
 --     set_lsp_config(client)
 --   end
 -- }
--- 
+--
 -- lspconfig.efm.setup {
 --   on_attach = function(client)
 --     client.resolved_capabilities.document_formatting = true
@@ -309,6 +310,52 @@ lspconfig.gopls.setup {
     },
 }
 -- }}}
+
+local system_name
+if vim.fn.has("mac") == 1 then
+  system_name = "macOS"
+elseif vim.fn.has("unix") == 1 then
+  system_name = "Linux"
+elseif vim.fn.has('win32') == 1 then
+  system_name = "Windows"
+else
+  print("Unsupported system for sumneko")
+end
+
+local sumneko_root_path = '/Users/development/.config/nvim/lua-language-server'
+local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
+lspconfig.sumneko_lua.setup {
+    on_attach = on_attach,
+    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+    filetypes = { "lua" },
+    log_level = 2,
+    -- root_dir = root_pattern(".git") or bufdir,
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Setup your lua path
+                path = vim.split(package.path, ';'),
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'},
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = {
+                  [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                  [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+                },
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
+}
 
 -- ????
 -- return M

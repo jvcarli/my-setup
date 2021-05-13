@@ -24,8 +24,17 @@ vim.g.user_emmet_leader_key='<C-S>'
 -- Trouble.nvim
 -- https://github.com/folke/trouble.nvim
 -- Toggle Trouble with `Leader > e` keys
-vim.api.nvim_set_keymap("n", "<leader>e", "<cmd>TroubleToggle<CR>", {noremap = true, silent = true}
-)
+-- vim.api.nvim_set_keymap("n", "<leader>tc", "<cmd>TroubleToggle<CR>", {noremap = true, silent = true}) -- redundant
+vim.api.nvim_set_keymap("n", "<leader>tw", "<cmd>LspTroubleWorkspaceToggle<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>td", "<cmd>LspTroubleDocumentToggle<CR>", {noremap = true, silent = true})
+
+-- folke/todo-comments
+-- has integration with folke/trouble
+-- see: https://github.com/folke/todo-comments.nvim
+vim.api.nvim_set_keymap("n", "<leader>tta", "<cmd>TroubleToggle Todo<CR>", {noremap = true, silent = true})
+--
+vim.api.nvim_set_keymap("n", "<leader>ttq", "<cmd>TodoQuickFix<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>tts", "<cmd>TodoTelescope<CR>", {noremap = true, silent = true})
 
 -- barbar.nvim
 vim.api.nvim_set_keymap("n", "[b", ":BufferNext<CR>", { noremap=true, silent = true })

@@ -416,6 +416,7 @@ require("packer").startup(function()
     -- diffview.nvim
     --  Single tabpage interface to easily cycle through diffs
     --  for all modified files for any git rev. 
+    --  TODO: learn and explore this plugin more
     use {
         "sindrets/diffview.nvim",
         requires = {'kyazdani42/nvim-web-devicons', opt = true}
@@ -442,7 +443,10 @@ require("packer").startup(function()
                         alt = { "FIXME", "BUG", "FIXIT", "FIX", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
                         -- signs = false, -- configure signs for some keywords individually
                     },
-                    TODO = { icon = " ", color = "info" },
+                    TODO = {
+                        icon = " ", color = "info",
+                        alt = {"TO DO", "TODO"}
+                    },
                     HACK = { icon = " ", color = "warning" },
                     WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
                     PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
