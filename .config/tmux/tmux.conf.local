@@ -42,38 +42,67 @@ tmux_conf_new_session_prompt=true
 
 # }}}
 
-# {{{ -- display -------------------------------------------------------------------
+# {{{ -- display (color & theme) -------------------------------------------------------------------
 
 # RGB 24-bit colour support (tmux >= 2.2), possible values are:
 #  - true
 #  - false (default)
 tmux_conf_24b_colour=false
 
-# {{{ Tokyonight Night
-tmux_conf_theme_colour_1="#1A1B26"
-#tmux_conf_theme_colour_1="#1f2335"     # middle bar fill --- OK
-tmux_conf_theme_colour_2="#414C6C"     # previously selected tmux window --- OK
-tmux_conf_theme_colour_3="#c0caf5"     # non active tmux windows (excluding previously selected) font color --- OK
-tmux_conf_theme_colour_4="#e0af68"     # current window bar color / previous selected tmux window font color --- OK
-tmux_conf_theme_colour_5="#9ECE6A"     # tmux command bar (similar to the vim one), font color is colour_1 --- OK
-tmux_conf_theme_colour_6="#151721"     # tmux session font color --- OK
+# TODO: move color themes to ./themes directory
+# chose themes by sourcing ONE of the theme files below:
+#source -q ~/.config/tmux/themes/nord.conf
+#source -q ~/.config/tmux/themes/tokyonight_night.conf
+#source -q ~/.config/tmux/themes/tokyonight_day.conf
+
+# {{{ Tokyonight Day Theme
+tmux_conf_theme_colour_1="#d4d6e4"
+tmux_conf_theme_colour_2="#c4c8da"     # previously selected tmux window --- OK
+tmux_conf_theme_colour_3="#8c6c3e"     # non active tmux windows (excluding previously selected) font color --- OK
+tmux_conf_theme_colour_4="#8c6c3e"     # current window bar color / previous selected tmux window font color --- OK
+tmux_conf_theme_colour_5="#587539"     # tmux command bar (similar to the vim one), font color is colour_1 --- OK
+tmux_conf_theme_colour_6="#e1e2e7"     # tmux session font color --- OK
 tmux_conf_theme_colour_7="#7aa2f7"     # uptime font color --- OK
 
 tmux_conf_theme_colour_8="#2e3440"     # ????????
 
-tmux_conf_theme_colour_9="#7aa2f7"     # tmux session number bar color --- OK
-tmux_conf_theme_colour_10="#414C6C"    # uptime bar color --- OK
+tmux_conf_theme_colour_9="#2e7de9"     # tmux session number bar color --- OK
+tmux_conf_theme_colour_10="#e1e2e7"    # uptime bar color --- OK
 
 tmux_conf_theme_colour_11="#a3be8c"    # ??????
 
-tmux_conf_theme_colour_12="#c0caf5"    # tmux prompt (little keyboard), hour and date font color --- OK
+tmux_conf_theme_colour_12="#6172b0"    # tmux prompt (little keyboard), hour and date font color --- OK
 tmux_conf_theme_colour_13="#7aa2f7"    # user font color --- OK
-tmux_conf_theme_colour_14="#151721"    # host font color --- OK
-tmux_conf_theme_colour_15="#1f2335"    # gap / hour / date bar color --- OK
-tmux_conf_theme_colour_16="#414C6C"    # user bar color --- OK
-tmux_conf_theme_colour_17="#7aa2f7"    # host bar color --- OK
-tmux_conf_theme_colour_18="#9ece6a"    # gitbar
+tmux_conf_theme_colour_14="#e1e2e7"    # host font color --- OK
+tmux_conf_theme_colour_15="#d4d6e4"    # gap / hour / date bar color --- OK
+tmux_conf_theme_colour_16="#c4c8da"    # user bar color --- OK
+tmux_conf_theme_colour_17="#2e7de9"    # host bar color --- OK
 # }}}
+
+# # {{{ Tokyonight Night Theme
+# tmux_conf_theme_colour_1="#1A1B26"
+# #tmux_conf_theme_colour_1="#1f2335"     # middle bar fill --- OK
+# tmux_conf_theme_colour_2="#414C6C"     # previously selected tmux window --- OK
+# tmux_conf_theme_colour_3="#c0caf5"     # non active tmux windows (excluding previously selected) font color --- OK
+# tmux_conf_theme_colour_4="#e0af68"     # current window bar color / previous selected tmux window font color --- OK
+# tmux_conf_theme_colour_5="#9ECE6A"     # tmux command bar (similar to the vim one), font color is colour_1 --- OK
+# tmux_conf_theme_colour_6="#151721"     # tmux session font color --- OK
+# tmux_conf_theme_colour_7="#7aa2f7"     # uptime font color --- OK
+
+# tmux_conf_theme_colour_8="#2e3440"     # ????????
+
+# tmux_conf_theme_colour_9="#7aa2f7"     # tmux session number bar color --- OK
+# tmux_conf_theme_colour_10="#414C6C"    # uptime bar color --- OK
+
+# tmux_conf_theme_colour_11="#a3be8c"    # ??????
+
+# tmux_conf_theme_colour_12="#c0caf5"    # tmux prompt (little keyboard), hour and date font color --- OK
+# tmux_conf_theme_colour_13="#7aa2f7"    # user font color --- OK
+# tmux_conf_theme_colour_14="#151721"    # host font color --- OK
+# tmux_conf_theme_colour_15="#1f2335"    # gap / hour / date bar color --- OK
+# tmux_conf_theme_colour_16="#414C6C"    # user bar color --- OK
+# tmux_conf_theme_colour_17="#7aa2f7"    # host bar color --- OK
+# # }}}
 
 # {{{ Nord theme
 # Adapted from https://github.com/arcticicestudio/nord
@@ -422,7 +451,16 @@ tmux_conf_copy_to_os_clipboard=false
 # Change $TERM to `xterm-kitty` if kitty terminal is being used
 # Using xterm-256color instead of screen-256color for other terminals
 # because screen-256color DOES NOT support italic fonts
-if-shell '[ "$TERM" = "xterm-kitty" ]' 'set -g default-terminal "xterm-kitty"' 'set -g default-terminal "xterm-256color"'
+#if-shell '[ "$TERM" = "xterm-kitty" ]' 'set -g default-terminal "xterm-kitty"' 'set -g default-terminal "xterm-256color"'
+if-shell '[ "$TERM" = "xterm-kitty" ]' 'set -g default-terminal "xterm-kitty"'
+
+if-shell '[ "$TERM" = "alacritty" ]' "\
+    set -g default-terminal "alacritty"
+    # to make colors work properly with alacritty do:
+    # Solved -> See: https://github.com/alacritty/alacritty/issues/2487
+    set-option -sa terminal-overrides ",alacritty:RGB" 
+    # Also relevant: https://unix.stackexchange.com/questions/476019/terminal-colors-look-wrong-when-using-tmux-with-termite
+"
 
 # increase history size
 # default is 10000
