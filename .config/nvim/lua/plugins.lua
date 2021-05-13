@@ -218,20 +218,6 @@ require("packer").startup(function()
 
     use "romgrk/barbar.nvim"
 
-    -- gitsigns
-    -- Git signs written in pure lua
-    -- with yadm support
-    use {
-        "lewis6991/gitsigns.nvim", -- lua plugin
-        requires = {"nvim-lua/plenary.nvim"},
-        config = function()
-            require("gitsigns").setup{
-                yadm = {
-                    enable = true
-                }
-            }
-        end
-    }
 
     -- lualine.nvim
     -- TODO: look for how to config better and other alternatives to lualine
@@ -435,6 +421,55 @@ require("packer").startup(function()
         requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
 
+    -- vim-gitgutter
+    -- shows git diff markers in the sign column
+    -- and stages/previews/undoes hunks and partial hunks
+    -- has integration with kshenoy/vim-signature
+    -- vim-gitgutter is SLOWER than gitsigns.nvim but
+    -- has vim-signature integration
+    use "airblade/vim-gitgutter"
+
+    use {
+        "folke/todo-comments.nvim",
+        config = function()
+            require("todo-comments").setup{
+                signs = true, -- show icons in the signs column
+                -- keywords recognized as todo comments
+                keywords = {
+                    FIX = {
+                        icon = " ", -- icon used for the sign, and in search results
+                        color = "error", -- can be a hex color, or a named color (see below)
+                        alt = { "FIXME", "BUG", "FIXIT", "FIX", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+                        -- signs = false, -- configure signs for some keywords individually
+                    },
+                    TODO = { icon = " ", color = "info" },
+                    HACK = { icon = " ", color = "warning" },
+                    WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+                    PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+                    NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+                },
+                -- highlighting of the line containing the todo comment
+                -- * before: highlights before the keyword (typically comment characters)
+                -- * keyword: highlights of the keyword
+                -- * after: highlights after the keyword (todo text)
+                highlight = {
+                    before = "", -- "fg" or "bg" or empty
+                    keyword = "wide", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
+                    after = "fg", -- "fg" or "bg" or empty
+                },
+                -- list of named colors where we try to extract the guifg from the
+                -- list of hilight groups or use the hex color if hl not found as a fallback
+                colors = {
+                    error = { "LspDiagnosticsDefaultError", "ErrorMsg", "#DC2626" },
+                    warning = { "LspDiagnosticsDefaultWarning", "WarningMsg", "#FBBF24" },
+                    info = { "LspDiagnosticsDefaultInformation", "#2563EB" },
+                    hint = { "LspDiagnosticsDefaultHint", "#10B981" },
+                    default = { "Identifier", "#7C3AED" },
+                },
+            }
+        end
+    } 
+
     --=======================================--
     --           Workflow Plugins            --
     --=======================================--
@@ -448,11 +483,11 @@ require("packer").startup(function()
     use {
         "folke/which-key.nvim",
         config = function()
-        require("which-key").setup {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        }
+            require("which-key").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
         end
     }
 
@@ -473,7 +508,21 @@ require("packer").startup(function()
 
     -- vim-signature
     -- Plugin to toggle, display and navigate marks
-    use "kshenoy/vim-signature" -- vim script plugin
+    -- has integration with airblade/vim-gitgutter
+    use {
+        "kshenoy/vim-signature", -- vim script plugin
+        config = function() 
+            -- vim provides only one sign column and allows only one sign per line.
+            -- It's not possible to run two plugins which both use the sign column
+            -- without them conflicting with each other,
+            -- see: https://github.com/airblade/vim-gitgutter/issues/289
+            --
+            -- BUT it's possible to integrate plugins
+            -- This will mach vim-signature color with vim-gitgutter
+            -- making they blend well together
+            vim.g.SignatureMarkTextHLDynamic = 1
+        end
+    }
 
     -- open-browser.vim
     -- open URI with your favorite browser from vim/neovim editor
@@ -520,6 +569,24 @@ require("packer").startup(function()
     --     requires = {'kyazdani42/nvim-web-devicons'},
     --     config = function()
     --         require('bufferline').setup{}
+    --     end
+    -- }
+    
+    -- gitsigns
+    -- Git signs written in pure lua
+    -- TODO: find a way to only use gitsigns in yadm managed files
+    -- TODO: find a way to integrate gitsigns with vim-signature due
+    -- to gitsigns being MUCH faster
+    -- HAS YADM SUPPORT    
+    -- use {
+    --     "lewis6991/gitsigns.nvim", -- lua plugin
+    --     requires = {"nvim-lua/plenary.nvim"},
+    --     config = function()
+    --         require("gitsigns").setup{
+    --             yadm = {
+    --                 enable = true
+    --             }
+    --         }
     --     end
     -- }
 end)
