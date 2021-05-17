@@ -102,7 +102,7 @@ COMPLETION_WAITING_DOTS="true"
 # }}}
 
 # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7,bg=8,bold,underline"
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7,bg=8,underline"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7,bg=8"
 
 # omz - Plugins {{{
 # Which plugins would you like to load?
@@ -112,8 +112,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7,bg=8,underline"
 # Add wisely, as too many plugins slow down shell startup.
 # Aliases are defined as plugins too.
 # For a full list of active aliases, run `alias`.
-plugins=(zsh-syntax-highlighting zsh-autosuggestions asdf asdf-direnv my-aliases vi-mode osx kitty-autocompletion )
-# Disabled: goku, colored-man-pages, docker docker-compose
+plugins=(zsh-syntax-highlighting zsh-autosuggestions asdf asdf-direnv my-aliases vi-mode kitty-autocompletion )
+# Disabled: goku, colored-man-pages, docker docker-compose osx
 # }}}
 
 source $ZSH/oh-my-zsh.sh
@@ -151,7 +151,7 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 # Disable Homebrew analytics & add security
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
-export HOMEBREW_CASK_OPTS=--require-sha
+#export HOMEBREW_CASK_OPTS=--require-sha
 # }}}
 
 # Pipenv {{{
@@ -185,4 +185,11 @@ eval "$(zoxide init zsh)"
 
 #eval "$(starship init zsh)"
 
-alias luamake=/Users/development/.config/nvim/lua-language-server/3rd/luamake/luamake
+alias luamake=/Users/development/.local/share/nvim/nvim-lsp-language-servers/lua-language-server/3rd/luamake/luamake
+
+# this one doesn't work
+#alias theme-reset="kitty @ --to unix:/tmp/kitty set-colors --reset"
+#alias theme="cd ~/.config/kitty/kitty-themes/themes && fzf --preview 'head -n 40 {} && kitty @ --to unix:/tmp/kitty set-colors -a -c {}'; cd -"
+
+alias theme-reset="kitty @ set-colors --reset"
+alias theme="cd ~/.config/kitty/kitty-themes/themes && fzf --preview 'head -n 40 {} && kitty @ set-colors -a -c {}'; cd -"

@@ -1,12 +1,18 @@
 # dotfiles-macos
 
-Personal dotfiles for macOS Mojave and Big Sur managed by [yadm](https://github.com/TheLocehiliosan/yadm).
-
-These configurations were primarily tested on Mojave and are guaranteed to function there. They're in migration process to Big Sur.
+Personal dotfiles for macOS Big Sur managed by [yadm](https://github.com/TheLocehiliosan/yadm).
 
 ## Install guide
 
 TODO 
+
+## Updating Submodules
+
+Update submodules with:
+
+```bash
+  $ yadm submodule update --remote --merge
+```
 
 ## Open source apps
 

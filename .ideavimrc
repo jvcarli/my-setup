@@ -40,3 +40,8 @@ map <leader>t <Action>(ActivateTerminalToolWindow)
 
 " Map -> split current tab vertically
 map <leader>v <Action>(SplitVertically)
+
+" TODO: add more shortcuts to a more vim like experience
+" See: https://github.com/MarcoIeni/intellimacs
+" See: https://github.com/VSpaceCode/VSpaceCode
+

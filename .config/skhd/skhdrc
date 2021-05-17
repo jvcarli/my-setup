@@ -267,13 +267,21 @@ resize < o : yabai -m space --balance
 
 # iTerm2 terminal
 # Both commands are working, "open -na iTerm" is just a fallback option
-
 shift + ctrl + alt - return : osascript -e 'tell application "iTerm2" to create window with default profile command ""' || open -na iTerm
 
 # Kitty terminal
+# TODO: kitty invocation work
+# does not work
 #ctrl + alt - return : kitty --single-instance --directory ~/Projects
+
+# Kitty nontmux mode
+#ctrl + alt - return : kitty --config /Users/development/.config/kitty/kitty.conf --config /Users/development/.config/kitty/kitty.conf --directory ~/Projects
+
+# Kitty tmux mode
+#ctrl + alt - return : kitty --config ~/.config/kitty/kitty.conf --directory ~
+
 # Opens single instance of kitty in ~/Projects directory
-ctrl + alt - return : kitty --directory ~/Projects
+#ctrl + alt - return : kitty --directory ~/Projects
 
 #: }}}
 

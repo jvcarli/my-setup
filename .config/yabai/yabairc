@@ -84,7 +84,8 @@ yabai -m config focus_follows_mouse autoraise
 # focuses another window (e.g. through a focus command),
 # the mouse cursor gets moved to the center of the focused window.
 # set mouse follows focus mode (default: off)
-yabai -m config mouse_follows_focus on
+# WARNING: this options is quite buggy
+yabai -m config mouse_follows_focus off
 #: }}}
 
 #: Window modifications {{{
