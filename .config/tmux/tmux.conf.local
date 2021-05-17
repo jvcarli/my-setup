@@ -44,6 +44,17 @@ tmux_conf_new_session_prompt=true
 
 # {{{ -- display (color & theme) -------------------------------------------------------------------
 
+# TODO: fzf script to switch tmux color and neovim.
+# kitty color switch script is already DONE. Integrate it with tmux color and neovim
+# See: https://github.com/nickjj/dotfiles/blob/master/.local/bin/set-theme
+# See: https://nickjanetakis.com/blog/a-terminal-tmux-vim-and-fzf-theme-switching-script-written-in-python 
+
+# Curly underlines in kitty + tmux + neovim support
+# see: http://evantravers.com/articles/2021/02/05/curly-underlines-in-kitty-tmux-neovim/
+set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
+set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
+
+
 # RGB 24-bit colour support (tmux >= 2.2), possible values are:
 #  - true
 #  - false (default)
@@ -104,30 +115,30 @@ tmux_conf_theme_colour_17="#2e7de9"    # host bar color --- OK
 # tmux_conf_theme_colour_17="#7aa2f7"    # host bar color --- OK
 # # }}}
 
-# {{{ Nord theme
-# Adapted from https://github.com/arcticicestudio/nord
-#tmux_conf_theme_colour_1="#2e3440"     # middle bar fill
-#tmux_conf_theme_colour_2="#4c566a"     # previously selected tmux window 
-#tmux_conf_theme_colour_3="#eceff4"     # non active tmux windows (excluding previously selected)
-#tmux_conf_theme_colour_4="#81a1c1"     # current window bar color / previous selected tmux window font color
-#tmux_conf_theme_colour_5="#88c0d0"     # tmux command bar (similar to the vim one)
-#tmux_conf_theme_colour_6="#2e3440"     # tmux session font color
-#tmux_conf_theme_colour_7="#eceff4"     # uptime font color
-#
-#tmux_conf_theme_colour_8="#2e3440"     # ????????
-#
-#tmux_conf_theme_colour_9="#ebcb8b"     # tmux session number bar color
-#tmux_conf_theme_colour_10="#b48ead"    # uptime bar color
-#
-#tmux_conf_theme_colour_11="#a3be8c"    # ??????
-#
-#tmux_conf_theme_colour_12="#eceff4"    # tmux prompt (little keyboard), hour and date font color
-#tmux_conf_theme_colour_13="#eceff4"    # user font color
-#tmux_conf_theme_colour_14="#2e3440"    # host font color
-#tmux_conf_theme_colour_15="#2e3440"    # gap / hour / date bar color
-#tmux_conf_theme_colour_16="#bf616a"    # user bar color
-#tmux_conf_theme_colour_17="#eceff4"    # host bar color
-# }}}
+# # {{{ Nord theme
+# # Adapted from https://github.com/arcticicestudio/nord
+# tmux_conf_theme_colour_1="#2e3440"     # middle bar fill
+# tmux_conf_theme_colour_2="#4c566a"     # previously selected tmux window 
+# tmux_conf_theme_colour_3="#eceff4"     # non active tmux windows (excluding previously selected)
+# tmux_conf_theme_colour_4="#81a1c1"     # current window bar color / previous selected tmux window font color
+# tmux_conf_theme_colour_5="#88c0d0"     # tmux command bar (similar to the vim one)
+# tmux_conf_theme_colour_6="#2e3440"     # tmux session font color
+# tmux_conf_theme_colour_7="#eceff4"     # uptime font color
+
+# tmux_conf_theme_colour_8="#2e3440"     # ????????
+
+# tmux_conf_theme_colour_9="#ebcb8b"     # tmux session number bar color
+# tmux_conf_theme_colour_10="#b48ead"    # uptime bar color
+
+# tmux_conf_theme_colour_11="#a3be8c"    # ??????
+
+# tmux_conf_theme_colour_12="#eceff4"    # tmux prompt (little keyboard), hour and date font color
+# tmux_conf_theme_colour_13="#eceff4"    # user font color
+# tmux_conf_theme_colour_14="#2e3440"    # host font color
+# tmux_conf_theme_colour_15="#2e3440"    # gap / hour / date bar color
+# tmux_conf_theme_colour_16="#bf616a"    # user bar color
+# tmux_conf_theme_colour_17="#eceff4"    # host bar color
+# # }}}
 
 # {{{ default theme
 #tmux_conf_theme_colour_1="#080808"    # dark gray
@@ -480,6 +491,7 @@ set -gu prefix2
 unbind C-a
 unbind C-b
 set -g prefix C-a
+set -g prefix C-b
 bind C-a send-prefix
 
 # move status line to top
