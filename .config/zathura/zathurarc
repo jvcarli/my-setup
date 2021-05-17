@@ -1,1 +1,79 @@
+# Zathura configuration file for macOS
+
+#####################################################
+#                                                   #
+#                     MACOS                         #
+#                CONSIDERATIONS                     #
+#                                                   #
+#####################################################
+#
+# Zathura is being used with vimtex extension on neovim
+# On neovim see: :h vimtex-faq-zathura-macos
+# 
+# 1. Zathura needs `dbus` to work properly. Install it with the following:
+#
+#    brew install dbus
+#
+#    or, if it is already installed, reinstall (this
+#    seems necessary for some unknown reason):
+#
+#    brew reinstall dbus
+#
+# 2. Add this to your `.bashrc` or `.zshrc` file (or similar): >
+#
+#    export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
+#
+# 3. Change the value of `<auth><\auth>` in
+#    `/usr/local/opt/dbus/share/dbus-1/session.conf` from `EXTERNAL` to
+#    `DBUS_COOKIE_SHA1`.
+#
+# 4. Run `brew services start dbus`
+#
+# 5. Now install Zathura (most recean version, aka HEAD): 
+#
+#    Zathura is not available as a upstream homebrew tap, see: the alternatie tap https://github.com/zegervdv/homebrew-zathura
+#
+#    brew tap zegervdv/zathura
+#    brew install girara --HEAD
+#    brew install zathura --HEAD --with-synctex
+#    brew install zathura-pdf-poppler
+#    mkdir -p $(brew --prefix zathura)/lib/zathura
+#    ln -s $(brew --prefix zathura-pdf-poppler)/libpdf-poppler.dylib $(brew --prefix zathura)/lib/zathura/libpdf-poppler.dylib
+#
+# 6. Reboot and enjoy.
+#
+# Note: If you already had Zathura and girara installed and things don't
+#       work, then first uninstall and unlink them and try to follow the
+#       above steps from step 1.
+#
+# [0]: https://github.com/lervag/vimtex/issues/1737#issuecomment-759953886
+# [1]: https://brew.sh
+
+#####################################################
+#                                                   #
+#                     ACTUAL CONFIG                 #
+#                                                   #
+#####################################################
+
+# Zathura is using the x11 primary selection as the default instead of the actual clipboard. This setting change it to the actual clipboard:
 set selection-clipboard clipboard
+
+# vimtex backward search integration
+# On neovim  see: h: vimtex-faq-neovim
+# that is, control clicking on a word on zathura
+# so neovim automatically shows the correct source line 
+# This works without any modifications 
+#
+# Forward search
+# TODO: add forward search support
+#
+# Detailed overview of forward / inverse (backward) searches with Zathura
+# see: https://www.math.cmu.edu/~gautam/sj/blog/20140310-zathura-fsearch.html
+#
+# If for some reason backward search doesn't work, try uncommenting the following:
+set synctex true
+# nvr (neovim remote) MUST be installed: see: https://github.com/mhinz/neovim-remote 
+# see: https://magmath.com/vim-how-to-use-reverse-and-forward-search-with-vim-and-zathura.html
+# see: https://github.com/lervag/vimtex/issues?q=forward+search
+set synctex-editor-command "nvr --servername /tmp/nvimsocket +%{line} %{input}"
+
