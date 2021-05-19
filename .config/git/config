@@ -1,0 +1,26 @@
+[user]
+	email = jvitor.carli@tutamail.com
+	name = João Vítor Carli
+
+[core]
+	excludesFile = ~/.config/git/gitignore
+    pager = delta
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+
