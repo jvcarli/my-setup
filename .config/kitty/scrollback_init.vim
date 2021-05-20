@@ -6,5 +6,7 @@
 " See: https://sw.kovidgoyal.net/kitty/#the-scrollback-buffer
 
 set number
-" Maps q for existing vim in NORMAL mode"
+
+" Maps q and escape keys for existing vim in NORMAL mode"
 nnoremap q :q!<CR>
+nnoremap <ESC> :q!<CR>
