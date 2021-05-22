@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# vim:fileencoding=utf-8:ft=conf:foldmethod=marker
+# vim:fileencoding=utf-8:ft=bash:foldmethod=marker
 
 # MACOS BIG SUR BOOTSTRAPING
 
@@ -14,7 +14,7 @@ dir_config="$HOME/.config"
 
 # Files
 file_brewfile="$HOME/.config/brew/Brewfile"
-  
+
 #: }}}
 
 #: Functions {{{
@@ -26,13 +26,16 @@ file_brewfile="$HOME/.config/brew/Brewfile"
 # install xcodetools if they aren't installed yet
 install_xcodetools() {
 
-  echo "Checking if Xcode command line tools are installed..."
-  if [[ $(xcode-select -p 1>/dev/null;echo $?) == 2 ]]; then
-    echo -e "Installing Apple Command Line Tools... \n"
-    xcode-select --install
-  else
-    echo -e "Xcode command line tools are already installed. \n"
-  fi
+	echo "Checking if Xcode command line tools are installed..."
+	if [[ $(
+		xcode-select -p 1>/dev/null
+		echo $?
+	) == 2 ]]; then
+		echo -e "Installing Apple Command Line Tools... \n"
+		xcode-select --install
+	else
+		echo -e "Xcode command line tools are already installed. \n"
+	fi
 
 }
 
@@ -43,27 +46,27 @@ install_xcodetools() {
 # detect and install homebrew if it isn't installed yet
 install_brew() {
 
-  echo "Detecting if Homebrew package manager is already installed"
-  if ! command -v brew &> /dev/null; then
-    echo "Homebrew is NOT installed"
-    echo "Installing Homebrew Package Manager..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  else
-    echo -e "Homebrew is already installed.\n"
-  fi
+	echo "Detecting if Homebrew package manager is already installed"
+	if ! command -v brew &>/dev/null; then
+		echo "Homebrew is NOT installed"
+		echo "Installing Homebrew Package Manager..."
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	else
+		echo -e "Homebrew is already installed.\n"
+	fi
 
 }
 
-# install packages, cli tools and gui apps from brewfile 
+# install packages, cli tools and gui apps from brewfile
 install_brewfile() {
 
-  echo "Installing / Upgrading applications and cli tools from Brewfile"
-  # Updating brew
-  brew update
-  # Upgrading packages
-  brew upgrade 
-  # Brewfile path: $file_brewfile
-  brew bundle --file $file_brewfile
+	echo "Installing / Upgrading applications and cli tools from Brewfile"
+	# Updating brew
+	brew update
+	# Upgrading packages
+	brew upgrade
+	# Brewfile path: $file_brewfile
+	brew bundle --file $file_brewfile
 
 }
 
@@ -74,31 +77,31 @@ install_brewfile() {
 # install asdf plugins
 install_asdf_plugins() {
 
-  echo -e "\nInstalling asdf-vm plugins"
-  # Ruby
-  asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
-  # Python
-  asdf plugin-add python
-  # Nodejs
+	echo -e "\nInstalling asdf-vm plugins"
+	# Ruby
+	asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+	# Python
+	asdf plugin-add python
+	# Nodejs
 
 }
 
 # install asdf languages
 install_asdf_langs() {
 
-  echo -e "\nInstalling programming languages with asdf-vm"
+	echo -e "\nInstalling programming languages with asdf-vm"
 
-  # Python
-  asdf install python 2.7.18  # Latest python 2 version. EOL jan/2020
-  # python 3.5.1 install is not working
-  asdf install python 3.8.8
-  asdf install python 3.9.2   # Latest python 3 stable
+	# Python
+	asdf install python 2.7.18 # Latest python 2 version. EOL jan/2020
+	# python 3.5.1 install is not working
+	asdf install python 3.8.8
+	asdf install python 3.9.2 # Latest python 3 stable
 
-  # Ruby
-  asdf install ruby 2.7.2      # Latest ruby stable
-  
-  # Nodejs
-  asdf install nodejs 12.18.1  # latest LTS version that supports gitbook
+	# Ruby
+	asdf install ruby 2.7.2 # Latest ruby stable
+
+	# Nodejs
+	asdf install nodejs 12.18.1 # latest LTS version that supports gitbook
 
 }
 
@@ -107,20 +110,11 @@ install_asdf_langs() {
 #: Tmux  {{{
 # tmux_resurrect
 create_tmux_ressurect_dir() {
-    RESURRECTDIR="$HOME/.local/share/tmux/tmux-resurrect"
-    echo "Creating Tmux Ressurect directory"
-    mkdir -p $RESURRECTDIR
+	RESURRECTDIR="$HOME/.local/share/tmux/tmux-resurrect"
+	echo "Creating Tmux Ressurect directory"
+	mkdir -p $RESURRECTDIR
 }
 #: }}}
-
-#: }}}
-
-#: Change default shell to zsh {{{
-
-change_shell_to_zsh() {
-  echo -e "Changing default shell to zsh...\n"
-  chsh -s $(which zsh)
-}
 
 #: }}}
 
@@ -134,14 +128,14 @@ change_shell_to_zsh() {
 # Ignore insecure directories and continue [y] or abort compinit [n]?
 
 fix_insecure_dir() {
-  #compaudit | xargs chmod g-w  # Deprecated in favor of oficial brew command below
-  chmod -R go-w "$(brew --prefix)/share"
-  # TODO: compinit command does not work inside bash
-  # it must be evoked within zsh
-  # and compinit must be autoloaded before running compinit
-  #autoload -Uz compinit && compinit
+	#compaudit | xargs chmod g-w  # Deprecated in favor of oficial brew command below
+	chmod -R go-w "$(brew --prefix)/share"
+	# TODO: compinit command does not work inside bash
+	# it must be evoked within zsh
+	# and compinit must be autoloaded before running compinit
+	#autoload -Uz compinit && compinit
 
-  #rm -f ~/.zcompdump; compinit
+	#rm -f ~/.zcompdump; compinit
 }
 
 # zsh compinit: insecure directories, run compaudit for list.
@@ -152,15 +146,15 @@ fix_insecure_dir() {
 
 detect_dotconfig() {
 
-  echo "Detecting the presence of $HOME/.config..."
-  
-  if [ ! -d "$dir_config" ]; then
-    echo "$dir_config does not exist." 
-    echo -e "Making $dir_config directory \n"
-    mkdir $test
-  else
-    echo -e "$dir_config already exists \n"
-  fi
+	echo "Detecting the presence of $HOME/.config..."
+
+	if [ ! -d "$dir_config" ]; then
+		echo "$dir_config does not exist."
+		echo -e "Making $dir_config directory \n"
+		mkdir $test
+	else
+		echo -e "$dir_config already exists \n"
+	fi
 
 }
 
@@ -168,14 +162,13 @@ detect_dotconfig() {
 # to $HOME/.config
 
 symlink_file_dir() {
-  
-  echo "Detecting if config files are already sylinked..."
-  local f=$1
-  for entry in "$f"/*
-  do
-    ln -s $entry $HOME/.config 
-  done
-  echo ""
+
+	echo "Detecting if config files are already sylinked..."
+	local f=$1
+	for entry in "$f"/*; do
+		ln -s $entry $HOME/.config
+	done
+	echo ""
 
 }
 
@@ -183,7 +176,9 @@ symlink_file_dir() {
 
 #: }}}
 
-#: Installing gui apps, cli tools and config files {{{
+#: Install {{{
+# Install gui apps and cli tools.
+# Add config files and symlink necessary files
 
 # Welcome message
 echo -e "\nStarting bootstrapping for macOS Big Sur...\n"
@@ -205,15 +200,12 @@ install_brewfile
 # Install asdf plugins if they are not found
 install_asdf_plugins
 # Install programming languages using asdf if they aren't found
-install_asdf_langs
+#install_asdf_langs
 
 #Tmux
 create_tmux_ressurect_dir
 
 # System & apps configs
 # Trigger other scripts
-
-# Change default shell to zsh
-change_shell_to_zsh
 
 #: }}}
