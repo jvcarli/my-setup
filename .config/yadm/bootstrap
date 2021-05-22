@@ -78,6 +78,12 @@ if [ "$SYSTEM_TYPE" = "Darwin" ]; then
 		# Boostrapping macOS Mojave
 		ask_confirmation "$MACOS_MOJAVE_BOOTS"
 
+    # If version mame starts with 11
+    elif [[ "$MACOS_VERSION" == 11* ]]; then
+		echo -e "System name: macOS Big Sur\n"
+		# Boostrapping macOS Big Sur
+		ask_confirmation "$MACOS_BIGSUR_BOOTS"
+
 	else
 		echo "There aren't any bootstrap files for this macOS version"
 	fi
