@@ -316,27 +316,36 @@ resize < o : yabai -m space --balance
 
 # iTerm2 terminal
 # Both commands are working, "open -na iTerm" is just a fallback option
-shift + ctrl + alt - return : osascript -e 'tell application "iTerm2" to create window with default profile command ""' || open -na iTerm
+# shift + ctrl + alt - return : osascript -e 'tell application "iTerm2" to create window with default profile command ""' || open -na iTerm
 
-# Kitty terminal
-# TODO: kitty invocation work
-# does not work
+# Kitty terminal emulator
+#
+# Non tmux mode (default conf):
+# Opens a single instance of kitty (that means multiple windows are bounded to one instance)
 #ctrl + alt - return : kitty --single-instance --directory ~/Projects
 
-# Kitty nontmux mode
+# opens new kitty OS window in home directory
+ctrl + alt - return : kitty --directory $HOME
+
+# Kitty mode
 #ctrl + alt - return : kitty --config /Users/development/.config/kitty/kitty.conf --config /Users/development/.config/kitty/kitty.conf --directory ~/Projects
 
 # Kitty tmux mode
+# TODO: add tmux_kitty.conf: an alternate kitty conf that disables some kitty shortcuts in favor of using them inside tmux
 #ctrl + alt - return : kitty --config ~/.config/kitty/kitty.conf --directory ~
-
-# Opens single instance of kitty in ~/Projects directory
-#ctrl + alt - return : kitty --directory ~/Projects
 
 #: }}}
 
-#: Other modes - NON USED {{{
-# OBS: Modes have a great ammount of delay,
-# for arrow keys and vim like keybinding
-# use either HammerSpoon or Karabiner Elements
+#: Other Modes - NON USED {{{
+#
+# Think in vim, skhd modes can work the same
+# When in a mode all keys are free to
+# any bind you want
+#
+# WARNING: Modes have a great ammount of delay,
+# for things like vi arrow keys or mappings
+# that need instant feedback
+# HammerSpoon or Karabiner Elements
+# produce better results
 
 #: }}}
