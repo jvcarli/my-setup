@@ -130,6 +130,53 @@ shift + ctrl + alt - 0 : yabai -m window --space 10; yabai -m space --focus 10
 
 #: }}}
 
+#: Windows stacks {{{
+# Cycle through stacks 
+# see: https://github.com/koekeishiya/yabai/issues/203
+
+# Go the backward stack and reload hammerspoon
+# sometimes when stacks are changed the slackline
+# current stack indicator doesn't update so instead
+# hammerspoon config is reloaded to make things more
+# reliable
+# see: https://github.com/AdamWagner/stackline
+ctrl + alt - 0x29 : yabai -m window --focus stack.prev && hs -c "hs.reload()"
+# 0x29 espace code translates to ; (semicolon)
+
+# Alternatively:
+# universal shortcut for going back to open stacks (or windows)
+# BUG: Instable behavior when working with multiple monitors
+# ctrl + alt - 0x29 : yabai -m query --spaces --space \
+#  | jq -re ".index" \
+#  | xargs -I{} yabai -m query --windows --space {} \
+#  | jq -sre "add | map(select(.minimized != 1)) | sort_by(.display, .frame.y, .frame.y, .id) | nth(index(map(select(.focused == 1))) - 1).id" \
+#  | xargs -I{} yabai -m window --focus {}
+
+
+## Go the forward stack
+# sometimes when stacks are changed the slackline
+# current stack indicator doesn't update so instead
+# hammerspoon config is reloaded to make things more
+# reliable
+ctrl + alt - 0x27 : yabai -m window --focus stack.next && hs -c "hs.reload()"
+
+# Alternatively
+# universal shortcut for going forward to open stacks (or windows)
+# BUG: Instable behavior when working with multiple monitors
+# ctrl + alt - 0x27 : yabai -m query --spaces --space \
+#  | jq -re ".index" \
+#  | xargs -I{} yabai -m query --windows --space {} \
+#  | jq -sre "add | map(select(.minimized != 1)) | sort_by(.display, .frame.y, .frame.x, .id) | reverse | nth(index(map(select(.focused == 1))) - 1).id" \
+#  | xargs -I{} yabai -m window --focus {}
+
+
+shift + alt - u : yabai -m window --stack west
+shift + alt - i : yabai -m window --stack south
+shift + alt - o : yabai -m window --stack north
+shift + alt - p : yabai -m window --stack east
+
+#:}}}
+
 #: Focus monitor {{{
 
 # focus monitor
@@ -227,7 +274,7 @@ ctrl + alt - v : yabai -m window --toggle sticky
 
 # change layout of desktop
 shift + ctrl + alt - space : yabai -m space --layout bsp
-ctrl + alt - space : yabai -m space --layout float
+ctrl + alt - space         : yabai -m space --layout float
 
 #: }}}
 
@@ -258,6 +305,8 @@ resize < shift - l : yabai -m window --resize right:-20:0
 # balance size of windows
 resize < o : yabai -m space --balance
 #:}}}
+
+#: }}}
 
 #: }}}
 
