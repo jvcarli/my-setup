@@ -193,3 +193,18 @@ alias luamake=/Users/development/.local/share/nvim/nvim-lsp-language-servers/lua
 
 alias theme-reset="kitty @ set-colors --reset"
 alias theme="cd ~/.config/kitty/kitty-themes/themes && fzf --preview 'head -n 40 {} && kitty @ set-colors -a -c {}'; cd -"
+
+# zathura dbus config
+export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
+
+# See: https://www.reddit.com/r/neovim/comments/aex45u/integrating_nvr_and_tmux_to_use_a_single_tmux_per/
+# if [[ -n $TMUX ]]; then
+#     export NVIM_LISTEN_ADDRESS=/tmp/nvim_$USER_`tmux 
+#     display -p "#{window_id}"`
+# fi
+
+# produces error:
+# open terminal failed: not a terminal
+# display: delegate library support not built-in '' (X11) @ error/display.c/DisplayImageCommand/18
+
+# export NVIM_LISTEN_ADDRESS="/tmp/nvimsocket"
