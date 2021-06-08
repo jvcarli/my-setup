@@ -41,3 +41,30 @@ command! HopChar2 lua require'hop'.hint_char2()
 command! HopLine lua require'hop'.hint_lines()
 
 colorscheme tokyonight
+
+" Go to the last non whitespace char
+" See: https://stackoverflow.com/questions/33663205/vim-jump-to-last-non-whitespace-character-of-a-file
+function! LastChar()
+  let oldsearch = @/
+  let oldhls = &hls
+  let oldz = @z
+
+  norm G$"zyl
+  if match(@z, '\S')
+    exe "norm ?\\S\<CR>"
+  endif
+
+  let @/ = oldsearch
+  let &hls = oldhls
+  let @z = oldz
+endfunction
+
+" autocmd BufWinEnter * :execute "normal \call LastChar()"
+" autocmd FileType * :execute "normal \call LastChar()"
+" autocmd FileType * :execute "normal \<Plug>SimpleFold_Foldsearch"
+
+" autocmd BufWinEnter * call LastChar() " calling works but gives error
+
+" TODO: insert autocommand to evoke LastChar function and then
+" TODO: place the line to the bottom of the screen (zb)
+" See: https://unix.stackexchange.com/questions/110251/how-to-put-current-line-at-top-center-bottom-of-screen-in-vim
