@@ -1,6 +1,6 @@
 # dotfiles
 
-Personal dotfiles for Arch Linux and macOS Big Sur. Managed using [GNU Stow](https://www.gnu.org/software/stow/).
+Personal dotfiles for Arch Linux. Managed using [GNU Stow](https://www.gnu.org/software/stow/).
 
 ## Installation
 
