@@ -1,0 +1,16 @@
+# List upgradable formulas
+brew outdated
+
+# List currently tapped repositories
+brew tap
+
+# Upgrade following the HEAD of the repoistory
+brew upgrade <formula> --fetch-HEAD
+# example:
+# brew upgrade neovim --fetch-HEAD
+
+# Audit commands
+brew audit <formula>
+brew audit --new-formula <formula>
+brew audit --strict <formula>
+brew audit --strict --online <formula>

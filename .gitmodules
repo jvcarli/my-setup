@@ -1,3 +1,20 @@
 [submodule "nvim/.config/nvim"]
 	path = nvim/.config/nvim
 	url = git@github.com:jvcarli/cosmonauta.nvim.git
+[submodule "cheat/.config/cheat/cheatsheets/community"]
+	path = cheat/.config/cheat/cheatsheets/community
+	url = git@github.com:cheat/cheatsheets
+
+; TODO: find out what is going to be loaded by Zinit instead of relying on git submodules
+; [submodule ".config/omz-custom/themes/powerlevel10k"]
+; 	path = .config/omz-custom/themes/powerlevel10k
+; 	url = https://github.com/romkatv/powerlevel10k.git
+; [submodule ".config/omz-custom/plugins/zsh-autosuggestions"]
+; 	path = .config/omz-custom/plugins/zsh-autosuggestions
+; 	url = https://github.com/zsh-users/zsh-autosuggestions
+; [submodule ".config/omz-custom/plugins/zsh-syntax-highlighting"]
+; 	path = .config/omz-custom/plugins/zsh-syntax-highlighting
+; 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+; [submodule ".config/tmux/oh-my-tmux"]
+; 	path = .config/tmux/oh-my-tmux
+; 	url = https://github.com/gpakosz/.tmux.git
