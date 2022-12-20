@@ -4,6 +4,9 @@
 [submodule "cheat/.config/cheat/cheatsheets/community"]
 	path = cheat/.config/cheat/cheatsheets/community
 	url = git@github.com:cheat/cheatsheets
+[submodule "tmux/.config/tmux/tpm"]
+	path = tmux/.config/tmux/tpm
+	url = git@github.com:tmux-plugins/tpm
 
 ; TODO: find out what is going to be loaded by Zinit instead of relying on git submodules
 ; [submodule ".config/omz-custom/themes/powerlevel10k"]
