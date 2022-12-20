@@ -1,0 +1,5 @@
+# tpm (https://github.com/tmux-plugins/tpm) managed plugins
+plugins/
+
+# logs, for some reason tmux logs can be placed here
+*.log
