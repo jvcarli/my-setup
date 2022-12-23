@@ -8,8 +8,9 @@ tags
 .gutctags
 
 # vim and nvim
-# Local vim directories
+# Local vim and nvim directories
 .vim/
+.nvim/
 #
 # vim-ctrlspace
 .cs_files
