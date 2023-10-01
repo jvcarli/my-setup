@@ -1,0 +1,53 @@
+;; You can find more details about the config under
+;; $HOME/.config/kmonad/annepro2.kbd
+(defcfg
+  input  (device-file "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd")
+
+  output (uinput-sink "My KMonad output"
+    "/usr/bin/sleep 1 && /usr/bin/setxkbmap  -option compose:menu")
+  cmp-seq compose
+  cmp-seq-delay 5
+
+  fallthrough false
+
+  allow-cmd false
+)
+
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lalt lmet           spc            rmet ralt
+)
+
+(defalias
+  cesc  (tap-next esc (layer-toggle capslayer))
+  csemi (tap-next ; rctrl)
+  cq   (tap-hold-next-release 500 q lctrl)
+  dlay (tap-hold-next-release 500 d (layer-toggle dlayer)) ;; TODO: include git issue
+)
+
+(deflayer mainlayer
+  grv     1    2    3     4    5    6    7    8    9    0      -    =    bspc
+  tab     @cq  w    e     r    t    y    u    i    o    p      [    ]    \
+  @cesc   a  s      @dlay f    g    h    j    k    l    @csemi '    ret
+  lsft    z    x    c     v    b    n    m    ,    .    /      rsft
+  lctrl   lalt lmet        spc                rmet ralt
+)
+
+(deflayer capslayer
+  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab     q    w    e    r    t    y    +'   +~   +^   +`   [    ]    \
+  caps    a    s    d    f    g    h    ret  k    l    bspc '    ret
+  lsft    z    x    c    v    b    n    m    +,   .    /    rsft
+  lctrl   lalt lmet        spc               rmet ralt
+)
+
+(deflayer dlayer
+  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab     q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps    a    s    d    f    g    lft  down up rght   ;    '    ret
+  lsft    z    x    c    v    b    n    m    ,    .    /    rsft
+  lctrl   lalt lmet        spc               rmet ralt
+)
