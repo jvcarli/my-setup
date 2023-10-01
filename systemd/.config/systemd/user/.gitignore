@@ -1,0 +1,4 @@
+# Ignore this directory.
+# It is used by systemd to place symlinks of
+# enabled user units.
+default.target.wants

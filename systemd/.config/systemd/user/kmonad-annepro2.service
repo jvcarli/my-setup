@@ -1,0 +1,11 @@
+[Unit]
+Description=Kmonad keyboard config for AnnePro 2 keyboard
+
+[Service]
+Restart=always
+RestartSec=3
+ExecStart=/usr/bin/kmonad %E/kmonad/annepro2.kbd
+Nice=-20
+
+[Install]
+WantedBy=default.target
