@@ -1,5 +1,6 @@
-# SEE: taken from https://twitter.com/rreverser/status/1250859650557280265
+# Taken from https://twitter.com/rreverser/status/1250859650557280265
 
 # Readable `git diff` on *.wasm binaries!
-# Needs wasm2wat binary instaled, SEE: https://github.com/WebAssembly/wabt/
+# Needs wasm2wat binary instaled,
+# SEE: https://github.com/WebAssembly/wabt/
 *.wasm diff=wasm
