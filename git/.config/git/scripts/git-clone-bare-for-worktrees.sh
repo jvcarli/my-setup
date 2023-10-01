@@ -1,17 +1,11 @@
 #!/usr/bin/env bash
 
 # Usage:
-#   $ git-clone-bare-for-worktrees git@github.com:name/repo.git
-#
-#   => Clones to a repo.git/.git directory
-#   => Creates repo.git/worktrees directory
-#   => Creates repo.git/resources directory
-#
 #   $ git-clone-bare-for-worktrees git@github.com:name/repo.git my-repo
 #
 #   => Clones to a my-repo/.git directory
 #   => Creates my-repo.git/worktrees directory
-#   => Creates my-repo.git/resources directory
+#   => Creates my-repo.git/exploring directory
 
 # TODO: optionally accepts upstream repo as argument
 # TODO: if there's a main (or master) branch repo on origin add it as a worktree
@@ -22,7 +16,7 @@
 #   see: https://levelup.gitconnected.com/git-worktrees-the-best-git-feature-youve-never-heard-of-9cd21df67baf
 
 # Plan is to create worktrees as siblings of $git_dir directory.
-# Example targeted structure:
+# Example of targeted structure:
 #
 # <my-project>
 # ├── .git/      (bare repository)
@@ -31,7 +25,7 @@
 # │   ├── new-awesome-feature/
 # │   ├── hot-fix-62/
 # │   └── ...
-# └── resources/ (all project resources that I DON'T want to be tracked by git)
+# └── exploring/ (all project resources that I DON'T want to be tracked by git)
 #     ├── some-doc.pdf
 #     ├── some-image.jpg
 #     ├── can-be-repos-too/
@@ -47,15 +41,30 @@ url=$1
 if [ "$2" != "" ]; then
     # $2 was given
     repo_dir=$2
-    git_dir=$repo_dir/.git
 else
     # $2 was not given
     # if url ends on .git cleans it so it won't get duplicated when defining $repo_dir
     basename=${url##*/}
+
+    # strips .git from the end of the url if there's one
     repo_dir=${basename%.*}
 
-    git_dir=$repo_dir/.git
+    # Define a regular expression pattern to match "<any-word-1>:<any-word-2>"
+    # so when cloning a repository using:
+    # example: $ git cb my:repository
+    #            only the <repository> part will be considered
+    # SEE: the main git config at ~/.config/git/config for better understanding
+    pattern="^[[:alnum:]]+:[[:alnum:]]+"
+
+    if [[ $repo_dir =~ $pattern ]]; then
+        # The word matches the pattern "<any-word-1>:<any-word-2>"
+
+        # strips the <any-word-1> part of "<any-word-1>:<any-word-2>"
+        repo_dir="${repo_dir/*:/}"
+    fi
 fi
+
+git_dir=$repo_dir/.git
 
 git clone --bare "$url" "$git_dir"
 
@@ -67,10 +76,10 @@ git -C "$git_dir" config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/
 git -C "$git_dir" fetch origin
 
 # Make worktrees placeholder dir for future git worktrees
+worktree_dir=$repo_dir/worktrees
+
 # Make resources placeholder dir for future project resources
 # (can be anything: documents, images, other repos, etc...)
-worktree_dir=$repo_dir/worktrees
-# resources_dir=$repo_dir/resources
 exploring_dir=$repo_dir/exploring
 
 mkdir "$worktree_dir" "$exploring_dir"
