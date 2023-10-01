@@ -1,15 +1,33 @@
 [user]
-	email = jvitor.carli@tutamail.com
+	email = jvitor.carli@gmail.com
 	name = Joao Vitor Carli Pereira
+
+[core]
+	excludesFile = ~/.config/git/gitignore
+	editor = nvim
+
 [init]
 	defaultBranch = main
 
 # Enforce SSH
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
-[url "ssh://git@gitlab.com/"]
-	insteadOf = https://gitlab.com/
-[url "ssh://git@bitbucket.org/"]
-	insteadOf = https://bitbucket.com/
-[core]
-	editor = nvim
+	insteadOf = gh:
+[url "ssh://git@github.com/jvcarli/"]
+	insteadOf = my:
+[url "https://aur.archlinux.org/"]
+	insteadOf = aur:
+
+# Aliases for personal scripts
+[alias]
+	# `$ git cb`: git (c)lone as (b)are repository,
+	# see the script for more info
+	cb = "!sh $HOME/.config/git/scripts/git-clone-bare-for-worktrees.sh"
+	jump = "!sh $HOME/.config/git/scripts/git-jump.sh"
+
+[diff]
+	tool = nvim
+[difftool]
+	prompt = false
+[diff "wasm"]
+	textconv = wasm2wat --enable-all --generate-names
