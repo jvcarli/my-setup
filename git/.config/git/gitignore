@@ -1,30 +1,31 @@
 # Global gitignore
 
-# InteliJ
+# InteliJ IDE files
 .idea/
 
-# ctags (universal-ctags)
+# ctags (Universal-Ctags)
+# https://github.com/universal-ctags/ctags
 tags
 .gutctags
 
-# vim and nvim
-# Local vim and nvim directories
+# Vim and Neovim
+# Local directories
 .vim/
 .nvim/
-#
-# vim-ctrlspace
-.cs_files
-#
-# nvim null-ls.nvim
-.null-ls-root
 
-# asdf-vm
+# asdf-vm (https://asdf-vm.com/)
 .tool-versions
 
-# direnv
+# Direnv (https://github.com/direnv/direnv)
 .envrc
 .direnv/
 .direnv
 
-# macOS files
+# macOS
 .DS_Store
+
+# Python
+.venv/
+.venv-*/
+venv-*/
+venv/
