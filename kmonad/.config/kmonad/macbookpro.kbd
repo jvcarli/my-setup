@@ -1,0 +1,66 @@
+(defcfg
+  ;; MacbookPro keyboard
+  input (device-file "/dev/input/by-path/pci-0000:00:1d.0-usb-0:1.8.3:1.0-event-kbd")
+
+  output (uinput-sink "My KMonad output"
+    "/usr/bin/sleep 1 && /usr/bin/setxkbmap  -option compose:menu")
+  cmp-seq compose
+  cmp-seq-delay 5
+
+  fallthrough true
+
+  allow-cmd false
+)
+
+(defsrc
+  esc   F1   F2   F3   F4   F5   F6   F7   F8   F9   F10  F11  F12
+  grv   1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab   q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps  a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft  z    x    c    v    b    n    m    ,    .    /    rsft
+  lctrl lalt lmet           spc            rmet ralt
+)
+
+(defalias
+  cesc  (tap-next esc (layer-toggle capslayer))
+  csemi (tap-next ; rctrl)
+  cq   (tap-hold-next-release 500 q lctrl)
+  dlay (tap-hold-next-release 500 d (layer-toggle dlayer)) ;; TODO: include git issue
+  numlay (layer-toggle numlayer)
+)
+
+(deflayer mainlayer
+  esc     F1   F2   F3   F4   F5   F6   F7   F8   F9  F10      F11  F12
+  grv     1    2    3     4    5    6    7    8    9    0      -    =    bspc
+  tab     @cq  w    e     r    t    y    u    i    o    p      [    ]    \
+  @cesc   a    s    @dlay f    g    h    j    k    l    @csemi '    ret
+  lsft    z    x    c     v    b    n    m    ,    .    /      rsft
+  lctrl    @numlay lmet        spc            rmet @numlay
+)
+
+(deflayer capslayer
+  esc     F1   F2   F3   F4   F5   F6   F7   F8   F9   F10  F11  F12
+  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab     q    w    e    r    t    y    +'   +~   +^   +`   [    ]    \
+  caps    a    s    d    f    g    h    ret  k    l    bspc '    ret
+  lsft    z    x    c    v    b    n    m    +,   .    /    rsft
+  lctrl   lalt lmet        spc               rmet ralt
+)
+
+(deflayer dlayer
+  esc     F1   F2   F3   F4   F5   F6   F7   F8   F9   F10  F11  F12
+  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab     q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps    a    s    d    f    g    lft  down up rght   ;    '    ret
+  lsft    z    x    c    v    b    n    m    ,    .    /    rsft
+  lctrl   lalt lmet        spc               rmet ralt
+)
+
+(deflayer numlayer
+  esc     F1   F2   F3   F4   F5   F6   F7   F8   F9   F10  F11  F12
+  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab     q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps    1    2    3    4    5    6    7    8    9    0    '    ret
+  lsft    z    x    c    v    b    n    m    ,    .    /    rsft
+  lctrl   lalt lmet        spc              rmet ralt
+)
