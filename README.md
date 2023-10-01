@@ -1,37 +1,34 @@
-# dotfiles
+# my setup
 
-Personal dotfiles for Arch Linux. Managed using [GNU Stow](https://www.gnu.org/software/stow/).
+Personal setup notes and dotfiles for Arch Linux and macOS Ventura.
+
+## Requirements
+
+- Git
+- GNU Stow
 
 ## Installation
 
-`git clone https://github.com/jvcarli/dotfiles ~/dotfiles && cd ~/dotfiles &&
-./install.sh`
+```bash
+git clone https://github.com/jvcarli/my-setup ~/dotfiles
+```
 
-## Updating Submodules
+Change directory and update git submodules:
 
-Update git submodules using:
+```bash
+cd ~/dotfiles
+```
 
 ```bash
   $ git submodule update --remote --merge
 ```
 
-## Todo
+Finally install the dotfiles. Currently this
+assumes a clean environment. The managed
+files and directories must not exist, otherwise
+`stow` will give errors. In the future this will
+be addressed.
 
-- [ ] Add list of managed apps
-
-## License
-
-Copyright (C) 2021 João Vítor Carli Pereira
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
+```bash
+./setup.sh --clean --install`
+```
