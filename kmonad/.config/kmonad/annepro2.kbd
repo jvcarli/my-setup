@@ -52,14 +52,19 @@
   ;; input (iokit-name "AnnePro2")
   ;; output (kext)
 
-  ;; Comment this is you want unhandled events not to be emitted
-  fallthrough false
+  ;; KMonad catches input events and tries to match them to various handlers. If
+  ;; it cannot match an event to any handler (for example, if it isn't included
+  ;; in the `defsrc` block, or if it is, but the current keymap does not map any
+  ;; buttons to it), then the event gets quietly ignored. If `fallthrough` is set
+  ;; to `true`, any unhandled events simply get reemitted.
+  ;; This allows special keys like FN1, FN2 or Magic FN from Anne Pro 2 to work
+  ;; correctly.
+  fallthrough true
 
   ;; Set this to false to disable any command-execution in KMonad
   allow-cmd false
 )
 
-;; TODO: Make FN1 and FN2 keys work!
 (defsrc
   grv   1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab   q    w    e    r    t    y    u    i    o    p    [    ]    \
