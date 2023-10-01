@@ -1,0 +1,4 @@
+# NOTE: Plugins with support can read the versions files used by other version managers,
+#       for example, .ruby-version in the case of Ruby's rbenv (https://github.com/rbenv/rbenv)
+#       and .nvmrc in the case of Javascript's nvm (https://github.com/nvm-sh/nvm)
+legacy_version_file = yes
