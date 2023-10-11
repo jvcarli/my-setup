@@ -5,7 +5,7 @@
 #
 #   => Clones to a my-repo/.git directory
 #   => Creates my-repo.git/worktrees directory
-#   => Creates my-repo.git/exploring directory
+#   => Creates my-repo.git/research directory
 
 # TODO: optionally accepts upstream repo as argument
 # TODO: if there's a main (or master) branch repo on origin add it as a worktree
@@ -25,10 +25,11 @@
 # │   ├── new-awesome-feature/
 # │   ├── hot-fix-62/
 # │   └── ...
-# └── exploring/ (all project resources that I DON'T want to be tracked by git)
+# └── research/ (all project resources that I DON'T want to be tracked by git)
 #     ├── some-doc.pdf
 #     ├── some-image.jpg
-#     ├── can-be-repos-too/
+#     ├── can-be-repos-too.git
+#     ├── random.txt
 #     └── ...
 
 set -e
@@ -80,6 +81,6 @@ worktree_dir=$repo_dir/worktrees
 
 # Make resources placeholder dir for future project resources
 # (can be anything: documents, images, other repos, etc...)
-exploring_dir=$repo_dir/exploring
+research_dir=$repo_dir/exploring
 
-mkdir "$worktree_dir" "$exploring_dir"
+mkdir "$worktree_dir" "$research_dir"
