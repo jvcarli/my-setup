@@ -81,6 +81,6 @@ worktree_dir=$repo_dir/worktrees
 
 # Make resources placeholder dir for future project resources
 # (can be anything: documents, images, other repos, etc...)
-research_dir=$repo_dir/exploring
+research_dir=$repo_dir/research
 
 mkdir "$worktree_dir" "$research_dir"
