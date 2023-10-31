@@ -24,6 +24,7 @@
 	# see the script for more info
 	cb = "!sh $HOME/.config/git/scripts/git-clone-bare-for-worktrees.sh"
 	jump = "!sh $HOME/.config/git/scripts/git-jump.sh"
+	ss = "!sh $HOME/.config/git/scripts/git-show-only-staged-files.sh"
 
 [diff]
 	tool = nvim
