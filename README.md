@@ -10,17 +10,17 @@ Personal setup notes and dotfiles for Arch Linux and macOS Ventura.
 ## Installation
 
 ```bash
-git clone https://github.com/jvcarli/my-setup ~/dotfiles
+$ git clone https://github.com/jvcarli/my-setup ~/dotfiles
 ```
 
 Change directory and update git submodules:
 
 ```bash
-cd ~/dotfiles
+$ cd ~/dotfiles
 ```
 
 ```bash
-  $ git submodule update --remote --merge
+$ git submodule update --remote --merge
 ```
 
 Finally install the dotfiles. Currently this
@@ -30,5 +30,5 @@ files and directories must not exist, otherwise
 be addressed.
 
 ```bash
-./setup.sh --clean --install`
+$ ./setup.sh --clean --install`
 ```
